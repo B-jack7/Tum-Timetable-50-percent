@@ -1,48 +1,24 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07315a">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="referrer" content="same-origin">
-  <meta name="description" content="Tum Timetable 个人账户与课程接入状态。">
-  <title>My account · Tum Timetable</title>
-  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./account.css">
-  <script type="module" src="./account.js"></script>
-</head>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07315a"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><title>我的课表 · Tum Timetable</title><link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="./icons/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./account.css"><script type="module" src="./account.js"></script></head>
 <body>
-  <a class="skip-link" href="#account-main">跳到个人账户 · Skip to account</a>
-  <header class="masthead">
-    <div class="page-width topbar">
-      <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">TT</span><span>Tum Timetable<small>Independent study companion · 非官方学习工具</small></span></a>
-      <a class="header-link" href="./index.html">学习首页 <span lang="en">Study home</span> <span aria-hidden="true">↗</span></a>
+<a class="skip-link" href="#account-main">跳到主要内容</a>
+<header class="app-header"><div class="page-width header-inner"><a class="brand" href="./account.html"><span class="brand-mark" aria-hidden="true">TT</span><span>Tum Timetable<small>YOUR STUDY SPACE</small></span></a><div class="header-actions"><button id="account-identity" class="identity-button" type="button">我的账号</button><button id="sync-calendar" class="sync-button" type="button" disabled>同步日历</button></div></div></header>
+<p id="page-loading" class="loading-state" role="status">正在打开你的课表…</p>
+<main id="account-main" class="page-width" hidden>
+  <div class="page-heading"><div><p class="eyebrow">EUROPE / BERLIN</p><h1 id="page-title">我的课表</h1><p id="sync-summary" class="sync-summary">尚未绑定日历</p></div><p class="time-zone-note">全部时间按德国当地时间显示</p></div>
+  <p id="action-message" class="action-message" role="status" aria-live="polite" hidden></p>
+  <nav class="main-tabs" aria-label="主要导航"><button type="button" data-account-tab="schedule" aria-pressed="true"><span aria-hidden="true">▦</span>课表</button><button type="button" data-account-tab="deadlines" aria-pressed="false"><span aria-hidden="true">☑</span>待办</button><button type="button" data-account-tab="settings" aria-pressed="false"><span aria-hidden="true">⚙</span>设置</button></nav>
+  <section id="view-schedule" class="view-panel" aria-label="我的每周课表"><div class="week-toolbar"><h2 id="week-range">本周</h2><div class="week-actions"><button id="previous-week" type="button" aria-label="上一周">←</button><button id="current-week" type="button">本周</button><button id="next-week" type="button" aria-label="下一周">→</button></div></div><div id="schedule-list" class="schedule-list"></div></section>
+  <section id="view-deadlines" class="view-panel" aria-labelledby="deadlines-title" hidden><div class="panel-heading"><div><h2 id="deadlines-title">接下来的截止</h2><p>最近 5 条 Moodle 日历活动；不代表作业提交状态。</p></div><button id="export-calendar" class="secondary-button" type="button" disabled>导出日历 ↓</button></div><div id="deadline-list" class="deadline-list"></div></section>
+  <section id="view-settings" aria-label="账号与日历绑定" hidden>
+    <div class="settings-intro"><h2>绑定私人日历订阅</h2><p>首次从学校系统复制一次订阅链接，之后由本应用同步。它是私人日历链接，并非直接授予学校账号权限。</p><p class="muted">打开页面及前台每 15 分钟检查更新；关闭后不在后台刷新，也可点击“同步日历”。提交后链接立即从输入框清空，页面不回显。</p></div>
+    <div class="feed-grid">
+      <section class="feed-card" aria-labelledby="feed-tumonline-title"><div class="feed-heading"><h3 id="feed-tumonline-title">TUMonline</h3><span id="feed-tumonline-status" class="feed-status">未绑定</span></div><p class="feed-purpose">课程时间、教室与其他学校日历安排</p><p id="feed-tumonline-meta" class="feed-meta">绑定后显示最近同步状态</p><p id="feed-tumonline-error" class="feed-error" hidden></p><form id="feed-tumonline-form" autocomplete="off"><label for="feed-tumonline-url">私人订阅 URL</label><div class="feed-input-row"><input id="feed-tumonline-url" name="tumonline-subscription" type="password" inputmode="url" autocomplete="off" spellcheck="false" autocapitalize="none" placeholder="粘贴你的日历订阅链接" aria-describedby="feed-link-note"><button id="feed-tumonline-reveal" type="button" aria-pressed="false">显示</button></div><div class="feed-actions"><button id="feed-tumonline-bind" class="primary-button" type="submit">绑定并同步</button><button id="feed-tumonline-remove" class="text-button" type="button" hidden>解除绑定</button></div></form><details class="feed-help"><summary>如何取得链接</summary><ol><li>打开 <a href="https://campus.tum.de/tumonline/" target="_blank" rel="noopener noreferrer">TUMonline ↗</a>，进入 Calendar（日历）。</li><li>选择 Publish（发布），复制私人日历订阅 URL。</li></ol></details></section>
+      <section class="feed-card" aria-labelledby="feed-moodle-title"><div class="feed-heading"><h3 id="feed-moodle-title">Moodle</h3><span id="feed-moodle-status" class="feed-status">未绑定</span></div><p class="feed-purpose">作业、测验和其他活动的截止安排</p><p id="feed-moodle-meta" class="feed-meta">绑定后显示最近同步状态</p><p id="feed-moodle-error" class="feed-error" hidden></p><form id="feed-moodle-form" autocomplete="off"><label for="feed-moodle-url">私人订阅 URL</label><div class="feed-input-row"><input id="feed-moodle-url" name="moodle-subscription" type="password" inputmode="url" autocomplete="off" spellcheck="false" autocapitalize="none" placeholder="粘贴你的日历订阅链接" aria-describedby="feed-link-note"><button id="feed-moodle-reveal" type="button" aria-pressed="false">显示</button></div><div class="feed-actions"><button id="feed-moodle-bind" class="primary-button" type="submit">绑定并同步</button><button id="feed-moodle-remove" class="text-button" type="button" hidden>解除绑定</button></div></form><details class="feed-help"><summary>如何取得链接</summary><ol><li>打开 <a href="https://www.moodle.tum.de/calendar/view.php?view=upcoming" target="_blank" rel="noopener noreferrer">Moodle 日历 ↗</a>，选择 Export calendar（导出）。</li><li>选择范围并点击 Get calendar URL，复制链接。导出是否开放，以你的账号实际可见选项为准。</li></ol></details></section>
     </div>
-    <div class="page-width hero"><p class="eyebrow" lang="en">YOUR STUDY SPACE</p><h1>个人账户<span lang="en">My account</span></h1><p>查看登录状态和个人课表的接入情况。</p></div>
-  </header>
-  <main class="page-width" id="account-main">
-    <section class="account-card" aria-labelledby="identity-title">
-      <div class="section-heading"><div><p class="eyebrow" lang="en">TUM IDENTITY</p><h2 id="identity-title">登录状态</h2></div><span id="identity-badge" class="status-badge checking">检查中 · Checking</span></div>
-      <div class="status-copy" role="status" aria-live="polite" aria-atomic="true"><h3 id="session-title">正在检查登录状态…</h3><p id="session-detail">请稍候。身份校验成功后，本页才会显示已登录。</p></div>
-      <p class="service-line" id="service-state">校方登录服务 · Checking service</p>
-      <div class="actions">
-        <a id="login-link" class="button primary" href="./login.html" hidden>前往登录 <span lang="en">Sign in</span></a>
-        <button id="logout-button" class="button secondary" type="button" hidden>退出本站 <span lang="en">Sign out here</span></button>
-        <button id="retry-button" class="button secondary" type="button" hidden>重新检查 <span lang="en">Try again</span></button>
-      </div>
-      <p id="action-message" class="action-message" role="alert" hidden></p>
-      <p id="logout-note" class="fine-print" hidden>“退出本站”只结束 Tum Timetable 的登录会话，不会退出 TUMonline、Moodle 或其他 TUM 服务。<span lang="en">This signs you out of this site only.</span></p>
-    </section>
-    <section class="courses-card" aria-labelledby="courses-title">
-      <div class="section-heading"><div><p class="eyebrow" lang="en">PERSONAL TIMETABLE</p><h2 id="courses-title">我的课表</h2></div><span class="status-badge neutral" id="courses-badge">未接入 · Not connected</span></div>
-      <div id="courses-empty" class="empty-state"><span class="empty-icon" aria-hidden="true">▦</span><h3>课表尚未接入或导入</h3><p>TUM 登录仅校验身份；个人选课和 Moodle 内容需要另行接入。这里不会展示其他人的课程。</p><p lang="en">Your timetable has not been connected or imported yet.</p></div>
-      <ul id="personal-courses" class="personal-courses" aria-label="已接入的个人课程" hidden></ul>
-      <p class="fine-print">本账户页不读取访客练习进度，也不提供跨设备进度同步。<span lang="en">Guest practice progress stays separate; account sync is not available.</span></p>
-    </section>
-    <aside class="privacy-note"><h2>你的登录信息留在校方</h2><p>本站没有密码输入框。正式接入后，TUM 身份验证在校方登录页完成；本页不显示你的原始 TUM 标识。</p></aside>
-    <footer><span>Tum Timetable · Personal account</span><a href="./login.html">登录帮助 · Sign-in information</a></footer>
-  </main>
-  <noscript><div class="noscript">当前未校验身份。请启用 JavaScript 检查登录状态；个人课表尚未接入或导入。<a href="./login.html">查看登录说明</a></div></noscript>
-</body>
-</html>
+    <p id="feed-link-note" class="feed-link-note">订阅链接可访问你的私人日历，请只粘贴在这里；不要填写学校密码。链接由账号服务保存，输入框不会保留。</p>
+    <section class="account-settings"><div><h3>本应用账号</h3><p id="settings-username">已登录</p></div><button id="logout-button" class="secondary-button" type="button">退出登录</button></section>
+  </section>
+  <footer class="app-footer">Tum Timetable · 独立学习工具<span>本应用账号与学校身份分开。</span></footer>
+</main><noscript><p class="noscript">请启用 JavaScript，登录后查看你自己的课表。</p></noscript>
+</body></html>

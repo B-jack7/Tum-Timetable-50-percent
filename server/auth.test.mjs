@@ -1,8 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import fs from 'node:fs/promises';
-import vm from 'node:vm';
 import {randomBytes} from 'node:crypto';
 import {generate} from 'selfsigned';
 import {SignedXml} from 'xml-crypto';
@@ -77,7 +75,7 @@ test('unconfigured HTTP API and private static paths do not bypass authenticatio
     const status=await fetch(base+'/api/auth/status');assert.match(status.headers.get('cache-control'),/no-store/);assert.equal((await status.json()).configured,false);
     assert.equal((await fetch(base+'/api/auth/login',{redirect:'manual'})).status,503);assert.equal((await fetch(base+'/api/courses')).status,401);assert.equal((await fetch(base+'/sw.js')).status,404);
     const account=await fetch(base+'/account.html',{redirect:'manual'});assert.equal(account.status,303);assert.equal(account.headers.get('location'),'/login.html');assert.match(account.headers.get('cache-control'),/no-store/);
-    const shell=await fetch(base+'/');assert.match(await shell.text(),/id="tum-signin"[^>]*disabled/);
+    const shell=await fetch(base+'/');assert.equal(shell.status,200);assert.match(shell.headers.get('content-type'),/text\/html/);assert.match(shell.headers.get('cache-control'),/no-store/);assert.equal(shell.headers.get('Set-Cookie'),null);
   });
 });
 test('HTTP callback sets no session on rejection; verified callback and CSRF logout work',async()=>{
@@ -99,12 +97,13 @@ test('loopback reverse-proxy users do not share a 20-request bucket; browser-bou
     assert.equal((await fetch(base+'/api/auth/login',{redirect:'manual',headers:{cookie}})).status,429);
   });
 });
-test('login UI resets stale authenticated state and fails closed on malformed providers/sessions',async()=>{
-  const script=await fs.readFile(new URL('../public/auth.js',import.meta.url),'utf8'),elements=new Map(),events=new Map();
-  const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,disabled:false,textContent:'',classList:{add(){},remove(){}},addEventListener(name,fn){events.set(id+':'+name,fn);}});return elements.get(id);};
-  let reply={configured:true,state:'ready',provider:'tum-saml',authenticated:true,loginUrl:'/api/auth/login'},me={authenticated:true,user:{id:'a'.repeat(43)}};
-  vm.runInNewContext(script,{document:{getElementById:element},location:{search:'',assign(){}},URLSearchParams,fetch:async url=>({ok:true,headers:{get:()=> 'application/json'},json:async()=>url.endsWith('/me')?me:reply})});await new Promise(setImmediate);
-  assert.equal(element('open-account').hidden,false);reply={...reply,authenticated:false};await events.get('check-auth:click')();assert.equal(element('open-account').hidden,true);assert.equal(element('tum-signin').hidden,false);assert.equal(element('tum-signin').disabled,false);
-  reply={...reply,provider:'fake-provider',authenticated:true};await events.get('check-auth:click')();assert.equal(element('open-account').hidden,true);assert.equal(element('tum-signin').disabled,true);
-  reply={...reply,provider:'tum-saml'};me={authenticated:false,user:null};await events.get('check-auth:click')();assert.equal(element('open-account').hidden,true);assert.equal(element('tum-signin').disabled,true);
+test('legacy SAML backend never accepts forged cookies or client claims while unconfigured',async()=>{
+  const disabled=readAuthConfig({}),auth=new AuthService(disabled);
+  await withServer(createApplication({config:disabled,auth}),async base=>{
+    const headers={cookie:SESSION_COOKIE+'='+randomBytes(32).toString('base64url')};
+    const me=await(await fetch(base+'/api/auth/me',{headers})).json();assert.equal(me.authenticated,false);assert.equal(me.user,null);assert.deepEqual(me.courses,[]);
+    for(const path of ['/api/auth/login?authenticated=true&provider=tum-saml','/api/auth/metadata']){const response=await fetch(base+path,{headers,redirect:'manual'});assert.equal(response.status,503);assert.equal(response.headers.get('Set-Cookie'),null);}
+    const callback=await fetch(base+'/api/auth/callback',{method:'POST',headers,redirect:'manual',body:new URLSearchParams({SAMLResponse:'forged',RelayState:'client-claims-success'})});assert.equal(callback.status,503);assert.equal(callback.headers.get('Set-Cookie'),null);assert.equal(auth.sessions.size,0);
+    assert.equal((await fetch(base+'/api/courses',{headers})).status,401);
+  });
 });

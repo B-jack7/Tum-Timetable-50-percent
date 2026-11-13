@@ -22,6 +22,8 @@ authoring/**/dist/
 /storage/
 /server/data/
 /server/sessions/
+/.local/
+/worker/generated-assets.mjs
 *.sqlite
 *.sqlite-*
 *.db

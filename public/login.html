@@ -1,37 +1,30 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#07315a">
-  <meta name="description" content="Tum Timetable：个人课程空间，等待学校批准的 TUM SSO 接入。">
-  <title>Sign in · Tum Timetable</title>
-  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="auth.css">
-  <script defer src="auth.js"></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07315a"><meta name="referrer" content="no-referrer">
+  <meta name="description" content="Tum Timetable：使用本应用账号管理自己的课程日历与截止提醒。"><title>登录 · Tum Timetable</title>
+  <link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="./icons/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./auth.css"><script type="module" src="./auth.js"></script>
 </head>
 <body>
   <main class="auth-layout">
     <section class="auth-intro" aria-label="Tum Timetable">
-      <a class="auth-brand" href="./index.html"><img src="icons/icon-192.png" alt=""><span>Tum Timetable<small>YOUR STUDY SPACE</small></span></a>
-      <div class="intro-copy"><p class="auth-eyebrow">ONE ACCOUNT. YOUR OWN SPACE.</p><h1>你的课表，<br>属于你。</h1><p class="intro-en" lang="en">Your timetable.<br>Your space.</p><p class="intro-note">课表、课程资料和学习安排。<br>从一个属于自己的账户开始。</p></div>
-      <p class="independent-note">独立开源项目 · 非 TUM 官方网站</p>
+      <a class="auth-brand" href="./index.html"><img src="./icons/icon-192.png" alt=""><span>Tum Timetable<small>YOUR STUDY SPACE</small></span></a>
+      <div class="intro-copy"><p class="auth-eyebrow">A CALMER STUDY DAY</p><h1>你的课表，<br>一目了然。</h1><p class="intro-en" lang="en">Your week.<br>Your own space.</p><p class="intro-note">绑定私人日历订阅，<br>查看上课地点与截止时间。</p></div>
+      <p class="independent-note">独立学习工具 · 非 TUM 官方服务</p>
     </section>
     <section class="auth-card" aria-labelledby="signin-title">
-      <p class="auth-eyebrow dark">WELCOME / 欢迎</p>
-      <h2 id="signin-title">登录个人空间</h2>
-      <p class="auth-subtitle" lang="en">Sign in to your own study space.</p>
-      <div class="auth-state" id="auth-state" role="status" aria-live="polite"><span class="state-dot" aria-hidden="true"></span><span id="status-text">正在检查登录服务…</span></div>
-      <p class="auth-error" id="auth-error" role="alert" hidden></p>
-      <button type="button" id="tum-signin" class="signin-button" disabled><span>使用 TUM 账户登录</span><span lang="en">Continue with TUM <span aria-hidden="true">↗</span></span></button>
-      <a href="account.html" id="open-account" class="signin-button account-link" hidden>打开个人账户 / Open my account →</a>
-      <button type="button" id="check-auth" class="check-button">重新检查 / Check again</button>
-      <div class="auth-explainer"><h3>你的密码，只交给学校。</h3><p>学校接入完成后，登录会跳转到学校的认证页面。本站不接收或保存 TUM 密码。</p><p lang="en">Sign-in will redirect to the university identity provider. This site never asks for your TUM password.</p></div>
-      <p class="auth-scope-note">身份验证成功后进入独立的个人账户。课程数据需要另行接入或导入；登录本身不会授权本站读取 TUMonline 或 Moodle。</p>
-      <p class="setup-note" id="setup-note">目前尚未完成学校 SSO 注册，TUM 登录暂不可用。此页面不会模拟登录或展示他人的课表。</p>
+      <p class="auth-eyebrow dark">YOUR APPLICATION ACCOUNT</p><h2 id="signin-title">登录本应用账号</h2><p class="auth-subtitle">使用为 Tum Timetable 单独设置的用户名和密码。</p>
+      <div class="auth-tabs" role="group" aria-label="登录或注册"><button id="mode-login" type="button" aria-pressed="true">登录</button><button id="mode-register" type="button" aria-pressed="false">注册</button></div>
+      <form method="post" id="local-auth-form" class="local-auth-form" novalidate>
+        <label for="app-username">本应用用户名<span>3–32 个字符</span></label><input id="app-username" name="username" autocomplete="username" minlength="3" maxlength="32" aria-describedby="username-format" required autocapitalize="none" spellcheck="false">
+        <p id="username-format" class="username-format">字母、数字、点、下划线或短横线；首位为字母或数字。</p>
+        <label for="app-password">本应用密码<span>12–128 个字符</span></label><div class="password-field"><input id="app-password" name="password" type="password" autocomplete="current-password" minlength="12" maxlength="256" required><button id="toggle-password" type="button" aria-pressed="false" aria-label="显示本应用密码">显示</button></div>
+        <p id="auth-error" class="auth-error" role="alert" hidden></p><button type="submit" id="submit-auth" class="signin-button" disabled>登录并打开课表 <span aria-hidden="true">→</span></button>
+      </form>
+      <p id="status-text" class="local-service-state" role="status" aria-live="polite">正在连接本应用账号服务…</p><button type="button" id="check-auth" class="check-button" hidden>重新连接</button>
+      <div class="auth-explainer"><h3>这是本应用自己的账号。</h3><p>请设置独立密码，不要填写 TUM 或 Moodle 的学校密码。注册后，在设置中复制并绑定一次私人日历订阅链接。</p></div>
+      <p class="setup-note">校方 SSO 可作为后续选项；当前登录不代表 TUM 身份认证，也不会直接取得学校账号授权。</p>
     </section>
-  </main>
-  <footer class="auth-footer">Designed for a calmer study day.<span>个人账户需要学校批准的身份接入与认证后端。</span></footer>
-  <noscript><p class="auth-noscript">请启用 JavaScript 查看登录服务状态。学校接入未完成时无法登录。</p></noscript>
-</body>
-</html>
+  </main><footer class="auth-footer">Tum Timetable<span>课表与待办，只来自你自己绑定的日历。</span></footer>
+  <noscript><p class="auth-noscript">请启用 JavaScript 使用本应用账号登录。</p></noscript>
+</body></html>

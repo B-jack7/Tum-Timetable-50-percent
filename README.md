@@ -1,75 +1,80 @@
 # Tum Timetable
 
-A new login-ready personal timetable project, with deadline reminders, calendar export and a reusable 91-question bilingual NLP practice bank. Repository: `Tum-Timetable`.
+Personal application accounts with private TUMonline and Moodle calendar subscriptions. New accounts start empty; the owner's old timetable and private links are not included.
 
-**The public project starts with an empty timetable and no Moodle tasks. It does not include the owner's legacy personal course data.** Each account must have its own empty initial state; signing in must not copy another person's courses.
+**App:** [Open Tum Timetable](https://tum-timetable.chenmooo010701.chatgpt.site)
 
-## Authentication status
+## Get started
 
-The browser client and Node authentication backend are separate components. TUM SSO is **not available** until the university/identity provider approves the service registration and the server has the matching metadata, endpoints and certificates. Missing configuration must leave university login disabled. A login page or backend scaffold does not mean school login or data synchronization is connected.
+1. Register a **Tum Timetable application account** with an independent password. This is not TUM identity verification; never enter your school password here.
+2. In **Settings**, bind your private calendar links: **TUMonline → Calendar → Publish**, and **Moodle → Calendar → Export calendar → Get calendar URL**. Moodle export availability and date ranges depend on your account.
+3. Paste each URL once and select **Bind and sync**. **Timetable** shows weekly times and locations; **Deadlines** shows the next five Moodle calendar activities. Accounts only see their own feeds.
 
-SSO identifies a user; it does not by itself authorize TUMonline or Moodle data access. See the separate authentication documentation for the implementation and its required configuration.
+Usernames are 3–32 ASCII letters/digits/dots/underscores/hyphens, starting with a letter or digit, and are normalized to lowercase. Application passwords are 12–128 Unicode characters and are not trimmed.
 
-## UI preview
+The app checks subscriptions on opening and every 15 minutes in the foreground; it checks stale data when returning to the foreground. **Closing it stops checks: there is no closed-app background polling.** Use Sync for an immediate refresh. Settings show the last successful sync and generic error state per source.
+
+Private URLs are cleared from the input immediately, never written to browser storage or error messages, and encrypted by the account service. Possessing a subscription link grants calendar access; it is not direct school-account authorization.
+
+Calendar export downloads courses and Moodle activities as ICS; Moodle activities carry one-day and two-hour reminders. Import it into your calendar app; that app's notification settings control the reminders. The downloaded file is a snapshot, so download it again after changes.
+
+## Current application preview
+
+<img src="docs/images/app-login.jpg" width="1200" alt="Desktop login page of the deployed Tum Timetable app">
+
+<img src="docs/images/app-calendar.jpg" width="1200" alt="Desktop empty timetable after signing in with a QA account">
+
+The current app has **Timetable / Deadlines / Settings** navigation and begins without personal calendar data.
+
+On Android, open the app in Chrome and choose **Install app** or **Add to Home screen**. The home-screen app follows website updates; private account data is not cached for offline access.
+
+## Authorized private-edition preview
 
 <img src="docs/images/timetable-preview.jpg" width="1200" alt="Owner-authorized full-page desktop screenshot of the private timetable edition">
 
-Full-page desktop preview of the private edition, shown with the owner's permission; the new login edition starts with an empty timetable. Screenshot only; underlying personal data is excluded.
+Full-page desktop preview of the private edition, shown with the owner's permission; the new login edition starts with an empty timetable. Screenshot only; underlying personal data is excluded. The existing private edition is maintained separately.
 
-## Run locally
+## Develop and verify
 
-Use Node.js 22 or newer; CI uses Node.js 24.
+Use **Node.js 24 or newer**.
 
 ```sh
 npm ci
 npm start
 ```
 
-The Node server normally listens on port 3000 and serves the login entry and authenticated application from the same origin. Configure it according to the authentication docs before testing actual university login; the unconfigured state must stay disabled. Do not enter school passwords into this application.
+The development server prints its HTTPS localhost URL, normally port 8781, uses a temporary local certificate, and stores development data in ignored `.local/`.
 
 ```sh
 npm test
 npm run check
 npm run build
-npm run preview
 ```
 
-`build` produces a **login-introduction-only static preview** in `dist/`: login HTML, authentication UI files, icons and the web manifest. It excludes the timetable, question bank, service worker, backend and account data. `preview` normally uses `http://127.0.0.1:4173`; it cannot authenticate anyone. `npm run dev` builds and serves the same restricted static preview. Use `npm start` or `npm run auth:start` for the backend integration.
+`build` bundles the APIs and seven browser UI files into `dist/server/index.js` for a Cloudflare-compatible Worker. Configure `APP_ORIGIN`, server secret `FEED_ENCRYPTION_KEY`, D1 binding `DB` and migrations as described in [application accounts](docs/auth-local.md) and [calendar binding](docs/calendar-binding.md). Never commit live secrets or databases.
 
-## Project layout
+GitHub Pages cannot run this backend. `npm run build:static` and the optional manual Pages workflow show only a login introduction, not a working account service. The private-edition PWA generator remains archived under `scripts/legacy/`; it is not enabled for account pages or private data.
+
+## Scope and limitations
+
+- Calendar events are **not grades, assessment rules, submission status or complete course materials**. External-platform deadlines may not appear.
+- Successful synchronization does not prove that the source feed includes every course. Moodle export ranges can limit future coverage.
+- The app uses its own accounts. School SAML remains a separate future option requiring university registration. `npm run auth:start` starts that optional integration, not the default app login.
+- The deployed MVP does not link the retained NLP bank. Its 91 stable bilingual IDs, backup format/key compatibility and editable authoring tools remain in the repository; the existing private practice site is unchanged.
+
+## Repository layout
 
 ```text
-public/                  Browser source; protected pages remain for the backend
-  data.js                Empty timetable state, never a shared account database
-  courses/in2361/        Reusable bilingual practice bank and evidence figures
-server/                  Separate authentication backend and its security tests
-authoring/in2361/        Editable 91-question source and math renderer
-scripts/                 Privacy checks and restricted static-preview builder
-  legacy/                Archived private-edition PWA generator; disabled
-tests/                  Content, backup and calendar compatibility tests
-docs/                   Authentication, maintenance and deployment notes
-.github/workflows/       CI and an optional manual login-preview Pages workflow
+public/       Login/account UI; no personal timetable snapshot
+server/       Accounts, sessions and calendar services
+worker/       Worker entry and generated browser assets
+db/,drizzle/  Database model and migrations
+authoring/    Retained editable NLP source and math tools
+scripts/      Build tools; archived legacy PWA helper
+tests/        Front-end mock and compatibility tests
+docs/         Setup, binding and maintenance notes
 ```
 
-## Maintain the question bank
+Complete original PDFs, school credentials, personal progress exports and private subscription URLs are excluded. Reusable course figures and KaTeX retain their attribution/license notices.
 
-Edit `authoring/in2361/content.json`, preserving existing question IDs, then run:
-
-```sh
-npm run nlp:rebuild
-npm test
-```
-
-This updates `public/courses/in2361/data.js` while preserving English/Chinese answers and source-review fields. The 91 stable IDs, backup format `nlp-study-backup` version `1`, course `IN2361`, and key `nlp-study-in2361-v1` remain compatible. A change of origin requires manual progress export/import; source migration cannot read another origin's browser storage. See [maintenance](docs/maintenance.md).
-
-## Deployment and privacy
-
-Deploy the configured Node backend to a server-capable host for a login application. GitHub Pages can only show the restricted static login introduction; it cannot run the backend, authenticate users or expose the protected application. The optional Pages workflow runs only on manual dispatch with an explicit preview confirmation. It does not enable Pages, create a repository or hardcode an owner.
-
-Keep credentials, signing keys, session stores and account-specific timetables outside `public/`, the public repository and every PWA cache. The old private-edition offline generator is archived under `scripts/legacy/` and is not called by dev or build. This login edition does not promise offline access to private account data. See [deployment boundaries](docs/deployment.md).
-
-## Materials
-
-Reusable practice figures, selected source-page images and locally bundled KaTeX retain their existing notices. Complete original PDFs, Sites identity, Git history, credentials and personal progress exports are excluded. Source citations retain filenames and page numbers without links to a personal private site. No broad license for course materials is implied; review the included notices and provenance before reuse.
-
-[中文使用说明](docs/usage.zh-CN.md) · [Maintenance](docs/maintenance.md) · [Deployment](docs/deployment.md)
+[中文使用说明](docs/usage.zh-CN.md) · [Account setup](docs/auth-local.md) · [Calendar details](docs/calendar-binding.md)

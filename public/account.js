@@ -1,193 +1,71 @@
-const API_ROOT = '/api/auth';
-const REQUEST_TIMEOUT = 8000;
-
-export class AccountApiError extends Error {
-  constructor(message, code = 'unavailable') {
-    super(message);
-    this.name = 'AccountApiError';
-    this.code = code;
-  }
+const SOURCES=['tumonline','moodle'];
+const SOURCE_LABELS={tumonline:'TUMonline',moodle:'Moodle'};
+const API_PATH=/^\/api\/(?:auth\/(?:me|logout)|calendar|sync|feeds(?:\/(?:tumonline|moodle))?)$/;
+export class AccountApiError extends Error{constructor(code='unavailable',status=0){super(code);this.name='AccountApiError';this.code=code;this.status=status;}}
+export function safeDisplayText(value,limit=4000){return String(value??'').slice(0,limit).replace(/(?:https?:|webcal:)\/\/[^\s<>]+/gi,'[链接]').replace(/((?:auth)?token|password|secret|key)=[^\s&]+/gi,'$1=[隐藏]');}
+export function safeActivityUrl(value){
+  try{const url=new URL(value);if(url.protocol!=='https:'||url.username||url.password||!(url.hostname==='tum.de'||url.hostname.endsWith('.tum.de'))||/(?:token|password|secret|authkey|calendar_key|userid)=/i.test(url.search+url.hash))return '';return url.href;}catch{return '';}
 }
-
-// The session endpoint is authoritative. Never infer authentication from a URL,
-// a cached guest profile, or the readiness endpoint.
-export function parseSession(payload) {
-  if (!payload || typeof payload !== 'object' || typeof payload.authenticated !== 'boolean') {
-    throw new AccountApiError('Invalid session response.', 'invalid-response');
-  }
-  if (!payload.authenticated) return { authenticated: false, csrfToken: null, courses: [] };
-  if (!payload.user || typeof payload.user.id !== 'string' || !payload.user.id.trim()) {
-    throw new AccountApiError('Verified session has no account identifier.', 'invalid-response');
-  }
-  // Retain the opaque identifier only on the server. The interface does not need
-  // to display, log, or persist it. Only course titles from this user's response
-  // can be shown; no public/demo data is loaded here.
-  return {
-    authenticated: true,
-    csrfToken: typeof payload.csrfToken === 'string' && payload.csrfToken.trim() ? payload.csrfToken : null,
-    courses: Array.isArray(payload.courses) ? payload.courses.filter(course => course && typeof course.title === 'string' && course.title.trim()).map(course => ({ title: course.title.trim() })) : []
-  };
+function validDateKey(value){return /^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T12:00:00Z'))&&new Date(value+'T12:00:00Z').toISOString().slice(0,10)===value;}
+function timestamp(value){if(typeof value==='number')return Number.isFinite(value)&&value>1000000000000?value:null;if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/i.test(value)||!validDateKey(value.slice(0,10))||Number(value.slice(11,13))>23)return null;const result=Date.parse(value);return Number.isFinite(result)?result:null;}
+function dateParts(value){return Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(value)).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));}
+export function berlinDateKey(value){const p=dateParts(value);return `${p.year}-${p.month}-${p.day}`;}
+function dateTime(value){const ms=timestamp(value);if(ms===null)return '';const p=dateParts(ms);return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}`;}
+function clockTime(value){const p=dateParts(timestamp(value));return `${p.hour}:${p.minute}`;}
+function addDays(key,count){const d=new Date(key+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+count);return d.toISOString().slice(0,10);}
+export function startOfWeek(key){const day=new Date(key+'T12:00:00Z').getUTCDay();return addDays(key,-((day+6)%7));}
+function dateLabel(key){const d=new Date(key+'T12:00:00Z');return `${d.getUTCMonth()+1} 月 ${d.getUTCDate()} 日`;}
+const weekday=key=>['周日','周一','周二','周三','周四','周五','周六'][new Date(key+'T12:00:00Z').getUTCDay()];
+function firstDay(event){return event.allDay?event.start.slice(0,10):berlinDateKey(timestamp(event.start));}
+function lastDay(event){const first=firstDay(event);if(event.allDay){const end=typeof event.end==='string'?event.end.slice(0,10):'';return validDateKey(end)&&end>first?addDays(end,-1):first;}const end=timestamp(event.end),start=timestamp(event.start);return end!==null&&end>start?berlinDateKey(end-1):first;}
+export function parseSession(payload){if(!payload||typeof payload.authenticated!=='boolean')throw new AccountApiError('invalid-response');if(!payload.authenticated)return{authenticated:false,csrfToken:null};if(typeof payload.user?.id!=='string'||!payload.user.id)throw new AccountApiError('invalid-response');return{authenticated:true,username:safeDisplayText(typeof payload.user.username==='string'?payload.user.username:'我的账号',64),csrfToken:typeof payload.csrfToken==='string'&&payload.csrfToken?payload.csrfToken:null};}
+export function parseCalendarPayload(payload){
+  if(!payload||!Array.isArray(payload.events)||!Array.isArray(payload.feeds))throw new AccountApiError('invalid-response');
+  const events=payload.events.flatMap((event,index)=>{if(!event||!SOURCES.includes(event.source))return[];const allDay=event.allDay===true,start=typeof event.start==='string'?event.start:'';if(allDay?!validDateKey(start.slice(0,10)):timestamp(start)===null)return[];return[{id:String(event.id??index),source:event.source,title:safeDisplayText(event.title||'日历安排',1000),start,end:typeof event.end==='string'?event.end:null,allDay,location:safeDisplayText(event.location,1500),description:safeDisplayText(event.description),url:safeActivityUrl(event.url)}];});
+  const feeds=SOURCES.map(source=>{const feed=payload.feeds.find(f=>f?.source===source)||{};return{source,bound:feed.bound===true,lastSynced:timestamp(feed.lastSynced),eventCount:Number.isSafeInteger(feed.eventCount)&&feed.eventCount>=0?feed.eventCount:0,error:Boolean(feed.error)};});
+  return{events,feeds,timezone:'Europe/Berlin'};
 }
-
-export function parseServiceStatus(payload) {
-  if (!payload || typeof payload !== 'object' || typeof payload.configured !== 'boolean') return { configured: null };
-  return { configured: payload.configured };
+export function groupWeek(events,week){return Array.from({length:7},(_,index)=>addDays(week,index)).map(date=>({date,events:events.filter(e=>e.source==='tumonline'&&firstDay(e)<=date&&lastDay(e)>=date).sort((a,b)=>Number(b.allDay)-Number(a.allDay)||(timestamp(a.start)??0)-(timestamp(b.start)??0))})).filter(day=>day.events.length);}
+export function upcomingDeadlines(events,now=Date.now()){const today=berlinDateKey(now);return events.filter(e=>e.source==='moodle'&&(e.allDay?firstDay(e)>=today:timestamp(e.start)>=now)).sort((a,b)=>(a.allDay?Date.parse(firstDay(a)+'T00:00:00Z'):timestamp(a.start))-(b.allDay?Date.parse(firstDay(b)+'T00:00:00Z'):timestamp(b.start)));}
+export async function requestAccountJson(path,options={},fetchImpl=globalThis.fetch){
+  if(!API_PATH.test(path))throw new AccountApiError('unsupported-endpoint');const method=options.method||'GET';if(!['GET','POST','DELETE'].includes(method))throw new AccountApiError('unsupported-method');if(method!=='GET'&&!options.csrfToken)throw new AccountApiError('missing-csrf');const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),25000);
+  try{const response=await fetchImpl(path,{method,credentials:'same-origin',cache:'no-store',redirect:'error',signal:controller.signal,headers:{Accept:'application/json',...(method!=='GET'?{'Content-Type':'application/json','x-csrf-token':options.csrfToken}:{})},...(method!=='GET'?{body:JSON.stringify(options.json||{})}:{})});if(!response.ok)throw new AccountApiError('request-failed',response.status);if(response.status===204)return{};if(!/application\/json/i.test(response.headers.get('content-type')||''))throw new AccountApiError('invalid-response');return await response.json();}catch(error){if(error instanceof AccountApiError)throw error;throw new AccountApiError('unavailable');}finally{clearTimeout(timeout);}
 }
-
-export async function requestAccountJson(path, options = {}, fetchImpl = globalThis.fetch) {
-  if (!/^\/(?:me|status|logout)$/.test(path)) throw new AccountApiError('Unsupported account endpoint.');
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
-  try {
-    const response = await fetchImpl(API_ROOT + path, {
-      ...options,
-      credentials: 'same-origin',
-      cache: 'no-store',
-      redirect: 'error',
-      signal: controller.signal,
-      headers: { Accept: 'application/json', ...(options.headers || {}) }
-    });
-    if (!response.ok) throw new AccountApiError('Account API is unavailable.', String(response.status));
-    if (!/\bapplication\/json\b/i.test(response.headers.get('content-type') || '')) {
-      throw new AccountApiError('Account API did not return JSON.', 'invalid-response');
-    }
-    return await response.json();
-  } catch (error) {
-    if (error instanceof AccountApiError) throw error;
-    throw new AccountApiError('Could not verify account state.', error?.name === 'AbortError' ? 'timeout' : 'unavailable');
-  } finally {
-    clearTimeout(timer);
-  }
+export async function loadCalendar(fetchImpl=globalThis.fetch){return parseCalendarPayload(await requestAccountJson('/api/calendar',{},fetchImpl));}
+export async function logoutAccount(csrfToken,fetchImpl=globalThis.fetch){return requestAccountJson('/api/auth/logout',{method:'POST',json:{},csrfToken},fetchImpl);}
+export function normalizeSubscription(value){if(typeof value!=='string'||!value.trim()||value.length>8192)return '';try{const url=new URL(value.trim().replace(/^webcal:/i,'https:'));return url.protocol==='https:'&&!url.username&&!url.password?url.href:'';}catch{return '';}}
+export function createAccountPage(doc,locationRef,fetchImpl=globalThis.fetch,now=()=>Date.now()){
+  const $=id=>doc.getElementById(id);let session=null,calendar={events:[],feeds:SOURCES.map(source=>({source,bound:false,lastSynced:null,eventCount:0,error:false}))},tab='schedule',week=startOfWeek(berlinDateKey(now())),busy=false,lastLoaded=0;
+  const node=(tag,className='',text)=>{const el=doc.createElement(tag);if(className)el.className=className;if(text!==undefined)el.textContent=text;return el;};
+  function message(text='',error=false){$('action-message').textContent=text;$('action-message').hidden=!text;$('action-message').className='action-message'+(error?' is-error':'');}
+  function fail(error,text){if(error?.status===401){locationRef.assign('/login.html');return;}message(error?.status===403?'登录会话已更新，请刷新页面后重试。':error?.status===429?'操作较多，请稍后再试。':text,true);}
+  function setBusy(value){busy=value;$('sync-calendar').disabled=value||!session?.csrfToken;$('sync-calendar').textContent=value?'正在同步…':'同步日历';$('logout-button').disabled=value||!session?.csrfToken;$('export-calendar').disabled=value||!calendar.events.length;for(const source of SOURCES){for(const suffix of ['url','reveal','bind','remove'])$('feed-'+source+'-'+suffix).disabled=value||!session?.csrfToken;}}
+  function selectTab(next){if(!['schedule','deadlines','settings'].includes(next))return;tab=next;for(const name of ['schedule','deadlines','settings'])$('view-'+name).hidden=name!==tab;for(const button of doc.querySelectorAll('[data-account-tab]'))button.setAttribute('aria-pressed',String(button.dataset.accountTab===tab));$('page-title').textContent={schedule:'我的课表',deadlines:'待办与截止',settings:'设置与绑定'}[tab];}
+  function empty(container,title,text,bind=false){const wrapper=node('div','empty-state');wrapper.append(node('div','empty-symbol','▦'),node('h3','',title),node('p','',text));if(bind){const button=node('button','primary-button','前往绑定日历 →');button.type='button';button.addEventListener('click',()=>selectTab('settings'));wrapper.append(button);}container.append(wrapper);}
+  function eventTime(event,date,deadline=false){if(deadline)return event.allDay?firstDay(event)+' · 全天（未提供具体时刻）':dateTime(event.start);if(event.allDay)return'全天';if(firstDay(event)!==lastDay(event)){if(date===firstDay(event))return clockTime(event.start)+' 起';if(date===lastDay(event)&&timestamp(event.end)!==null)return clockTime(event.end)+' 止';return'跨日安排';}return clockTime(event.start)+(timestamp(event.end)!==null?'–'+clockTime(event.end):'');}
+  function eventCard(event,date,deadline=false){const row=node('article','calendar-event'),time=node('time','event-time',eventTime(event,date,deadline));time.dateTime=event.start;const content=node('div','event-content'),title=node('h3','event-title');if(event.url){const link=node('a','',event.title+' ↗');link.href=event.url;link.target='_blank';link.rel='noopener noreferrer';title.append(link);}else title.textContent=event.title;content.append(title);if(event.location)content.append(node('p','event-location','⌖ '+event.location));if(event.description){const details=node('details','event-details');details.append(node('summary','','详情'),node('p','',event.description));content.append(details);}row.append(time,content);return row;}
+  function renderSchedule(){const container=$('schedule-list');container.replaceChildren();$('week-range').textContent=week.slice(0,4)+' 年 '+dateLabel(week)+' — '+dateLabel(addDays(week,6));const days=groupWeek(calendar.events,week),bound=calendar.feeds.find(f=>f.source==='tumonline')?.bound;if(!days.length){empty(container,bound?'本周暂无课程安排':'让课表从这里开始',bound?'可切换周次，或同步日历检查最新安排。':'在设置中绑定 TUMonline 私人日历订阅，查看你的课程时间和教室。',!bound);return;}for(const day of days){const section=node('section','day-section'),heading=node('h3','day-heading'+(day.date===berlinDateKey(now())?' is-today':''),weekday(day.date)+' · '+dateLabel(day.date));if(day.date===berlinDateKey(now()))heading.append(node('span','today-tag','今天'));section.append(heading);for(const event of day.events)section.append(eventCard(event,day.date));container.append(section);}}
+  function renderDeadlines(){const container=$('deadline-list');container.replaceChildren();const deadlines=upcomingDeadlines(calendar.events,now()),bound=calendar.feeds.find(f=>f.source==='moodle')?.bound;if(!deadlines.length){empty(container,bound?'暂无后续日历截止':'还没有待办来源',bound?'这里显示 Moodle 日历活动，不判断作业是否已提交。':'在设置中绑定 Moodle 私人日历订阅，集中查看最近的截止时间。',!bound);return;}for(const event of deadlines.slice(0,5))container.append(eventCard(event,firstDay(event),true));if(deadlines.length>5)container.append(node('p','deadline-caption','已显示最近 5 条；其余活动请在 Moodle 日历查看。'));}
+  function renderFeeds(){for(const feed of calendar.feeds){const prefix='feed-'+feed.source+'-';$(prefix+'status').textContent=feed.bound?'已绑定':'未绑定';$(prefix+'status').className='feed-status'+(feed.bound?' is-bound':'');$(prefix+'meta').textContent=feed.bound?(feed.lastSynced?'最近同步 '+dateTime(feed.lastSynced)+' · 德国时间':'尚未成功同步')+' · '+feed.eventCount+' 条安排':'绑定后显示最近同步状态';$(prefix+'error').hidden=!feed.error;$(prefix+'error').textContent=feed.error?'最近同步未成功，请检查订阅是否仍有效，或稍后重试。':'';$(prefix+'remove').hidden=!feed.bound;$(prefix+'bind').textContent=feed.bound?'更新并同步':'绑定并同步';}}
+  function render(){renderSchedule();renderDeadlines();renderFeeds();const bound=calendar.feeds.filter(f=>f.bound),last=bound.map(f=>f.lastSynced).filter(v=>v!==null).sort((a,b)=>b-a)[0];$('sync-summary').textContent=!bound.length?'先在设置中绑定你的私人日历':last?'最近同步 '+dateTime(last)+' · 德国时间'+(bound.some(f=>f.error)?' · 部分来源需重试':''):'日历已绑定，等待首次成功同步';selectTab(tab);setBusy(busy);}
+  async function updateCalendar(){calendar=await loadCalendar(fetchImpl);lastLoaded=now();render();}
+  async function refresh(){if(busy)return;setBusy(true);message();try{session=parseSession(await requestAccountJson('/api/auth/me',{},fetchImpl));if(!session.authenticated){locationRef.assign('/login.html');return;}$('account-identity').textContent=session.username;$('settings-username').textContent=session.username+' · 本应用账号';$('account-main').hidden=false;$('page-loading').hidden=true;if(!session.csrfToken){message('会话信息不完整，请重新登录。',true);return;}await updateCalendar();}catch(error){fail(error,'暂时无法读取日历，请稍后点击同步重试。');if(!session?.authenticated){$('page-loading').textContent='暂时无法检查登录状态，请刷新页面重试。';}}finally{setBusy(false);}}
+  async function refreshIfStale(){if(!busy&&now()-lastLoaded>=15*60*1000)await refresh();}
+  async function bindFeed(source,event){event?.preventDefault();if(!SOURCES.includes(source)||busy)return;const input=$('feed-'+source+'-url'),value=input.value;input.value='';input.type='password';$('feed-'+source+'-reveal').textContent='显示';$('feed-'+source+'-reveal').setAttribute('aria-pressed','false');const url=normalizeSubscription(value);if(!url){message('请粘贴有效的 HTTPS 私人日历订阅链接；输入框已清空。',true);return;}setBusy(true);message();try{await requestAccountJson('/api/feeds',{method:'POST',json:{source,url},csrfToken:session?.csrfToken},fetchImpl);await updateCalendar();message(SOURCE_LABELS[source]+' 日历已绑定并检查同步状态。');}catch(error){fail(error,'暂时无法完成绑定，请检查链接是否为有效的日历订阅，或稍后重试。输入框已清空。');}finally{setBusy(false);}}
+  async function unbindFeed(source){if(!SOURCES.includes(source)||busy)return;setBusy(true);message();try{await requestAccountJson('/api/feeds/'+source,{method:'DELETE',json:{},csrfToken:session?.csrfToken},fetchImpl);await updateCalendar();message(SOURCE_LABELS[source]+' 已解除绑定。');}catch(error){fail(error,'暂时无法解除绑定，请稍后重试。');}finally{setBusy(false);}}
+  async function sync(){if(busy)return;setBusy(true);message();try{await requestAccountJson('/api/sync',{method:'POST',json:{},csrfToken:session?.csrfToken},fetchImpl);await updateCalendar();message(calendar.feeds.some(f=>f.error)?'已检查日历；有来源暂未同步成功，请到设置查看。':'日历已同步。',calendar.feeds.some(f=>f.error));}catch(error){fail(error,'暂时无法完成同步，请稍后重试。');}finally{setBusy(false);}}
+  async function signOut(){if(busy)return;setBusy(true);message();try{await logoutAccount(session?.csrfToken,fetchImpl);session=null;locationRef.assign('/login.html');}catch(error){fail(error,'暂时无法退出，请重试。');}finally{setBusy(false);}}
+  async function exportCalendar(){if(busy||!calendar.events.length)return;setBusy(true);message();const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),25000);try{const response=await fetchImpl('/api/export.ics',{credentials:'same-origin',cache:'no-store',redirect:'error',signal:controller.signal,headers:{Accept:'text/calendar'}});if(!response.ok)throw new AccountApiError('export-failed',response.status);if(!/text\/calendar/i.test(response.headers.get('content-type')||''))throw new AccountApiError('invalid-response');const blob=await response.blob(),url=URL.createObjectURL(blob),link=node('a');link.href=url;link.download='tum-timetable-'+berlinDateKey(now())+'.ics';doc.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);message('日历文件已下载，可导入你使用的日历应用。');}catch(error){fail(error,'暂时无法导出日历，请稍后重试。');}finally{clearTimeout(timeout);setBusy(false);}}
+  for(const button of doc.querySelectorAll('[data-account-tab]'))button.addEventListener('click',()=>selectTab(button.dataset.accountTab));$('account-identity').addEventListener('click',()=>selectTab('settings'));$('sync-calendar').addEventListener('click',sync);$('logout-button').addEventListener('click',signOut);$('export-calendar').addEventListener('click',exportCalendar);
+  $('previous-week').addEventListener('click',()=>{week=addDays(week,-7);renderSchedule();});$('next-week').addEventListener('click',()=>{week=addDays(week,7);renderSchedule();});$('current-week').addEventListener('click',()=>{week=startOfWeek(berlinDateKey(now()));renderSchedule();});
+  for(const source of SOURCES){$('feed-'+source+'-form').addEventListener('submit',event=>{void bindFeed(source,event);});$('feed-'+source+'-remove').addEventListener('click',()=>{void unbindFeed(source);});$('feed-'+source+'-reveal').addEventListener('click',()=>{const input=$('feed-'+source+'-url'),show=input.type==='password';input.type=show?'text':'password';$('feed-'+source+'-reveal').textContent=show?'隐藏':'显示';$('feed-'+source+'-reveal').setAttribute('aria-pressed',String(show));});}
+  return{refresh,refreshIfStale,selectTab,bindFeed,unbindFeed,sync,signOut,exportCalendar};
 }
-
-export async function loadAccount(fetchImpl = globalThis.fetch) {
-  const [session, status] = await Promise.allSettled([
-    requestAccountJson('/me', {}, fetchImpl).then(parseSession),
-    requestAccountJson('/status', {}, fetchImpl).then(parseServiceStatus)
-  ]);
-  return {
-    session: session.status === 'fulfilled' ? session.value : null,
-    service: status.status === 'fulfilled' ? status.value : { configured: null },
-    error: session.status === 'rejected' ? session.reason : null
-  };
+export function installForegroundRefresh(page,doc,win){
+  let timer=null;
+  const check=()=>{if(doc.visibilityState==='visible')void page.refreshIfStale();};
+  const start=()=>{if(timer===null)timer=win.setInterval(check,15*60*1000);check();};
+  const stop=()=>{if(timer!==null){win.clearInterval(timer);timer=null;}};
+  doc.addEventListener('visibilitychange',check);win.addEventListener('pagehide',stop);win.addEventListener('pageshow',start);start();return stop;
 }
-
-export async function logoutAccount(csrfToken, fetchImpl = globalThis.fetch) {
-  if (typeof csrfToken !== 'string' || !csrfToken.trim()) {
-    throw new AccountApiError('A verified session token is required.', 'missing-csrf');
-  }
-  // For this same-origin POST, the browser supplies Origin. Never spoof it or
-  // send the session/CSRF token to a separately configured external API.
-  const result = await requestAccountJson('/logout', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrfToken },
-    body: '{}'
-  }, fetchImpl);
-  if (!result || result.authenticated !== false) throw new AccountApiError('Sign-out was not confirmed.', 'invalid-response');
-}
-
-export function createAccountPage(documentRef, locationRef, fetchImpl = globalThis.fetch) {
-  const element = id => documentRef.getElementById(id);
-  let session = null;
-  let busy = false;
-
-  function message(text = '') {
-    element('action-message').textContent = text;
-    element('action-message').hidden = !text;
-  }
-
-  function checking() {
-    session = null;
-    message();
-    element('identity-badge').className = 'status-badge checking';
-    element('identity-badge').textContent = '检查中 · Checking';
-    element('session-title').textContent = '正在检查登录状态…';
-    element('session-detail').textContent = '请稍候。身份校验成功后，本页才会显示已登录。';
-    element('service-state').textContent = '校方登录服务 · Checking service';
-    for (const id of ['login-link', 'logout-button', 'retry-button', 'logout-note']) element(id).hidden = true;
-    element('personal-courses').replaceChildren();
-    element('personal-courses').hidden = true;
-    element('courses-empty').hidden = false;
-    element('courses-badge').textContent = '未接入 · Not connected';
-  }
-
-  function render(result) {
-    session = result.session;
-    const verified = session?.authenticated === true;
-    const badge = element('identity-badge');
-    badge.className = 'status-badge ' + (verified ? 'verified' : session ? 'signed-out' : 'unavailable');
-    badge.textContent = verified ? '身份已校验 · Verified' : session ? '未登录 · Signed out' : '未校验 · Not verified';
-    element('login-link').hidden = verified;
-    element('logout-button').hidden = !verified;
-    element('logout-button').disabled = !session?.csrfToken;
-    element('logout-note').hidden = !verified;
-    element('retry-button').hidden = verified && Boolean(session.csrfToken);
-    if (verified) {
-      element('session-title').textContent = 'TUM 身份已校验';
-      element('session-detail').textContent = '你已登录本站。个人课程尚需接入，不会因登录而自动同步 TUMonline 或 Moodle。';
-      if (!session.csrfToken) message('登录会话缺少安全退出信息，请重新检查。Sign-out is temporarily unavailable.');
-    } else if (session) {
-      element('session-title').textContent = '请先登录你的个人账户';
-      element('session-detail').textContent = result.service.configured === false
-        ? '校方登录尚未配置。你可以查看登录说明；当前不会校验身份或加载个人课程。'
-        : '前往登录页面，通过 TUM 官方页面验证身份后再返回。Sign in to open your account.';
-    } else {
-      element('session-title').textContent = '当前无法校验身份';
-      element('session-detail').textContent = '此页面未连接到可用的账户服务。纯静态 GitHub Pages 仅展示账户界面，不能完成 TUM 登录或载入个人课表。The account service is unavailable.';
-    }
-    element('service-state').textContent = result.service.configured === true
-      ? '校方登录服务已配置 · SSO configured'
-      : result.service.configured === false
-        ? '校方登录尚未配置 · SSO not configured'
-        : '校方登录服务状态未确认 · Service status unconfirmed';
-    const courses = verified ? session.courses : [];
-    element('personal-courses').replaceChildren(...courses.map(course => {
-      const item = documentRef.createElement('li');
-      item.textContent = course.title;
-      return item;
-    }));
-    element('personal-courses').hidden = !courses.length;
-    element('courses-empty').hidden = Boolean(courses.length);
-    element('courses-badge').textContent = courses.length ? `${courses.length} 门个人课程 · Connected` : '未接入 · Not connected';
-    if (courses.length) element('session-detail').textContent = '你已登录本站。下方仅显示此登录会话返回的个人课程。';
-  }
-
-  async function refresh() {
-    if (busy) return;
-    busy = true;
-    checking();
-    try {
-      render(await loadAccount(fetchImpl));
-    } finally {
-      busy = false;
-    }
-  }
-
-  async function signOut() {
-    if (busy || session?.authenticated !== true) return;
-    busy = true;
-    message();
-    const button = element('logout-button');
-    button.disabled = true;
-    try {
-      await logoutAccount(session.csrfToken, fetchImpl);
-      session = null;
-      locationRef.assign('./login.html');
-    } catch {
-      message('退出结果未确认，请重新检查登录状态。Sign-out could not be confirmed.');
-      button.disabled = !session?.csrfToken;
-      element('retry-button').hidden = false;
-    } finally {
-      busy = false;
-    }
-  }
-
-  element('retry-button').addEventListener('click', refresh);
-  element('logout-button').addEventListener('click', signOut);
-  return { refresh, signOut };
-}
-
-if (typeof document !== 'undefined') {
-  const page = createAccountPage(document, globalThis.location);
-  void page.refresh();
-}
+if(typeof document!=='undefined'){const page=createAccountPage(document,globalThis.location);void page.refresh();installForegroundRefresh(page,document,globalThis.window);}
