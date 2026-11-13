@@ -21,7 +21,7 @@ export function normalizeUsername(value){
   return normalized;
 }
 function validatePassword(value){
-  if(typeof value!=='string'||Array.from(value).length<12||Array.from(value).length>128)fail(400,'invalid_password','本应用密码须为 12–128 个字符。请勿填写学校密码。');
+  if(typeof value!=='string'||Array.from(value).length<8||Array.from(value).length>128)fail(400,'invalid_password','本应用密码须为 8–128 个字符。请勿填写学校密码。');
   return value;
 }
 // A single native scrypt operation uses ~32 MiB. Serialize per isolate and bound queued work.

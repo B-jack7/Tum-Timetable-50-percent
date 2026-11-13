@@ -10,7 +10,7 @@ Personal application accounts with private TUMonline and Moodle calendar subscri
 2. In **Settings**, bind your private calendar links: **TUMonline → Calendar → Publish**, and **Moodle → Calendar → Export calendar → Get calendar URL**. Moodle export availability and date ranges depend on your account.
 3. Paste each URL once and select **Bind and sync**. **Timetable** shows weekly times and locations; **Deadlines** shows the next five Moodle calendar activities. Accounts only see their own feeds.
 
-Usernames are 3–32 ASCII letters/digits/dots/underscores/hyphens, starting with a letter or digit, and are normalized to lowercase. Application passwords are 12–128 Unicode characters and are not trimmed.
+Usernames are 3–32 ASCII letters/digits/dots/underscores/hyphens, starting with a letter or digit, and are normalized to lowercase. Application passwords are 8–128 Unicode characters and are not trimmed; uppercase letters and symbols are optional.
 
 The app checks subscriptions on opening and every 15 minutes in the foreground; it checks stale data when returning to the foreground. **Closing it stops checks: there is no closed-app background polling.** Use Sync for an immediate refresh. Settings show the last successful sync and generic error state per source.
 

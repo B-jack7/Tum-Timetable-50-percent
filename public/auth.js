@@ -1,10 +1,10 @@
 export class LocalAuthError extends Error {
   constructor(code='unavailable',status=0){super(code);this.name='LocalAuthError';this.code=code;this.status=status;}
 }
-const VALIDATION_MESSAGES={invalid_username:'用户名须为 3–32 位字母、数字、点、下划线或短横线，并以字母或数字开头。',invalid_password:'本应用密码需要 12–128 个字符。'};
+const VALIDATION_MESSAGES={invalid_username:'用户名须为 3–32 位字母、数字、点、下划线或短横线，并以字母或数字开头。',invalid_password:'本应用密码需要 8–128 个字符。'};
 function credentialsErrorCode(username,password){
   if(typeof username!=='string'||!/^[a-z0-9][a-z0-9._-]{2,31}$/.test(username.trim().toLowerCase()))return 'invalid_username';
-  if(typeof password!=='string'||Array.from(password).length<12||Array.from(password).length>128)return 'invalid_password';
+  if(typeof password!=='string'||Array.from(password).length<8||Array.from(password).length>128)return 'invalid_password';
   return '';
 }
 export function validateCredentials(username,password){return VALIDATION_MESSAGES[credentialsErrorCode(username,password)]||'';}

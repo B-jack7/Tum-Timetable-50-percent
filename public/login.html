@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07315a"><meta name="referrer" content="no-referrer">
   <meta name="description" content="Tum Timetable：使用本应用账号管理自己的课程日历与截止提醒。"><title>登录 · Tum Timetable</title>
-  <link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="./icons/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./auth.css"><script type="module" src="./auth.js"></script>
+  <link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="./icons/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./auth.css"><script type="module" src="./auth.js?v=20261114-2"></script>
 </head>
 <body>
   <main class="auth-layout">
     <section class="auth-intro" aria-label="Tum Timetable">
       <a class="auth-brand" href="./index.html"><img src="./icons/icon-192.png" alt=""><span>Tum Timetable<small>YOUR STUDY SPACE</small></span></a>
-      <div class="intro-copy"><p class="auth-eyebrow">A CALMER STUDY DAY</p><h1>你的课表，<br>一目了然。</h1><p class="intro-en" lang="en">Your week.<br>Your own space.</p><p class="intro-note">绑定私人日历订阅，<br>查看上课地点与截止时间。</p></div>
+      <div class="intro-copy"><p class="auth-eyebrow">A CALMER STUDY DAY</p><h1>我的课表</h1><p class="intro-en" lang="en">Your week.<br>Your own space.</p><p class="intro-note">绑定私人日历订阅，<br>查看上课地点与截止时间。</p></div>
       <p class="independent-note">独立学习工具 · 非 TUM 官方服务</p>
     </section>
     <section class="auth-card" aria-labelledby="signin-title">
@@ -18,7 +18,7 @@
       <form method="post" id="local-auth-form" class="local-auth-form" novalidate>
         <label for="app-username">本应用用户名<span>3–32 个字符</span></label><input id="app-username" name="username" autocomplete="username" minlength="3" maxlength="32" aria-describedby="username-format" required autocapitalize="none" spellcheck="false">
         <p id="username-format" class="username-format">字母、数字、点、下划线或短横线；首位为字母或数字。</p>
-        <label for="app-password">本应用密码<span>12–128 个字符</span></label><div class="password-field"><input id="app-password" name="password" type="password" autocomplete="current-password" minlength="12" maxlength="256" required><button id="toggle-password" type="button" aria-pressed="false" aria-label="显示本应用密码">显示</button></div>
+        <label for="app-password">本应用密码<span>8–128 个字符</span></label><div class="password-field"><input id="app-password" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="256" required><button id="toggle-password" type="button" aria-pressed="false" aria-label="显示本应用密码">显示</button></div>
         <p id="auth-error" class="auth-error" role="alert" hidden></p><button type="submit" id="submit-auth" class="signin-button" disabled>登录并打开课表 <span aria-hidden="true">→</span></button>
       </form>
       <p id="status-text" class="local-service-state" role="status" aria-live="polite">正在连接本应用账号服务…</p><button type="button" id="check-auth" class="check-button" hidden>重新连接</button>

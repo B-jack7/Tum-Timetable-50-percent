@@ -28,7 +28,7 @@ const auth=createLocalAuth({store,expectedOrigin:env.APP_ORIGIN});
 
 ## API
 
-注册和登录的 JSON 为 `{username,password}`。用户名先去两端空白、转换 ASCII 小写，只接受 3–32 位 `[a-z0-9._-]`，首字符须为字母或数字；密码不去空白，长度为 12–128 个 Unicode 字符。学校密码不能用于本应用。当前不提供邮件确认、找回密码或官方身份认证。
+注册和登录的 JSON 为 `{username,password}`。用户名先去两端空白、转换 ASCII 小写，只接受 3–32 位 `[a-z0-9._-]`，首字符须为字母或数字；密码不去空白，长度为 8–128 个 Unicode 字符，不要求大写或特殊符号。学校密码不能用于本应用。当前不提供邮件确认、找回密码或官方身份认证。
 
 | API | 成功响应 |
 | --- | --- |

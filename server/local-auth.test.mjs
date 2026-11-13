@@ -42,9 +42,25 @@ test('registration is unique under concurrent requests and login failure is gene
 });
 test('origin, JSON boundaries and credentials are validated before account/session changes',async()=>{
   const{db,auth}=fixture();try{
-    for(const input of [{origin:'https://evil.example'},{origin:'null'},{type:'text/plain'},{username:'x'},{password:'too short'},{password:'x'.repeat(129)},{body:'not json'},{body:'x'.repeat(9000)}]){const response=await auth.register(request('/api/local/register',input));assert.ok(response.status>=400);assert.equal(response.headers.get('Set-Cookie'),null);}
+    for(const input of [{origin:'https://evil.example'},{origin:'null'},{type:'text/plain'},{username:'x'},{password:'short7x'},{password:'x'.repeat(129)},{body:'not json'},{body:'x'.repeat(9000)}]){const response=await auth.register(request('/api/local/register',input));assert.ok(response.status>=400);assert.equal(response.headers.get('Set-Cookie'),null);}
     assert.equal(db.prepare('SELECT count(*) AS n FROM users').get().n,0);assert.equal(db.prepare('SELECT count(*) AS n FROM sessions').get().n,0);
     assert.throws(()=>createLocalAuth({store:createSQLiteStore(db),expectedOrigin:'http://app.example'}));assert.throws(()=>createLocalAuth({store:createSQLiteStore(db)}));
+  }finally{db.close();}
+});
+
+test('password policy accepts simple eight and ten characters, counts Unicode and preserves spaces',async()=>{
+  const{db,auth}=fixture();try{
+    for(const password of ['moss482','x'.repeat(129),'😀'.repeat(7),'😀'.repeat(129)]){
+      const response=await auth.register(request('/api/local/register',{username:'boundary_bad',password}));assert.equal(response.status,400);assert.equal((await response.json()).error,'invalid_password');assert.equal(response.headers.get('Set-Cookie'),null);
+    }
+    assert.equal(db.prepare('SELECT count(*) AS n FROM users').get().n,0);
+    const accepted=['moss482q','birch482q9','😀'.repeat(8),'😀'.repeat(128),' moss482q '];
+    for(const[index,password]of accepted.entries()){
+      const response=await auth.register(request('/api/local/register',{username:'boundary_'+index,password}));assert.equal(response.status,201,'accept '+Array.from(password).length+' Unicode characters');
+    }
+    const trimmed=await auth.login(request('/api/local/login',{username:'boundary_4',password:'moss482q'}));assert.equal(trimmed.status,401,'spaces are part of the password');
+    const exact=await auth.login(request('/api/local/login',{username:'boundary_4',password:' moss482q '}));assert.equal(exact.status,200);
+    assert.equal(db.prepare('SELECT count(*) AS n FROM users').get().n,accepted.length);
   }finally{db.close();}
 });
 test('CSRF/Origin checks isolate users, and logout and session expiry revoke access',async()=>{
