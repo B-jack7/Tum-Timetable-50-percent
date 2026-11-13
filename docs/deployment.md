@@ -17,7 +17,9 @@ Local accounts, hashed sessions, rate buckets and encrypted subscriptions persis
 
 ## Worker and D1 production
 
-Run the tests and checks above, then npm run build. The build bundles worker/index.mjs into dist/server/index.js and embeds an explicit UI allowlist. The Worker serves account pages only after session validation. Production requests must reach this Worker rather than a static server serving all of public/.
+Run the tests and checks above, then npm run build. The build bundles worker/index.mjs into dist/server/index.js and embeds an explicit UI allowlist. It includes the login/account shells, style.css, app.js, tasks.js, calendar-adapter.js, account support files, icons and the manifest. Personal snapshots and the retained NLP bank are excluded. The Worker serves account pages only after session validation. Production requests must reach this Worker rather than a static server serving all of public/.
+
+The account edition reuses the original timetable layout: desktop header, statistics, weekly grid and tasks below; mobile Timetable / Tasks / Courses navigation. Account and calendar binding open in a header dialog. The adapter builds that view from the authenticated account's calendar API response, not from the private edition's static course records. Assessment information absent from calendars remains explicitly unavailable. Reusing the layout does not enable NLP practice, Moodle material extraction or school-account API authorization.
 
 Deploy through the host's supported Worker/server pipeline. Bind the persistent D1 database under the name DB. The native Sites pipeline collects root drizzle/ for database migrations; retain its generated SQL, journal and snapshots. Apply migrations through deployment before accepting account requests. API handlers never create tables. Other Cloudflare hosts require their equivalent D1 migration configuration.
 
@@ -35,6 +37,8 @@ APP_ORIGIN is configured explicitly because a proxy's internal request address m
 
 Verify registration, login, logout, expired sessions and two-account isolation at the actual public URL. Anonymous requests must not read account.html, /api/calendar or /api/export.ics. Account/API responses must remain private, no-store. New accounts start empty until their owner binds an official subscription. Login does not grant university API access; calendar activities do not establish assignment submission status.
 
+Also check desktop weekly/course views, the mobile Timetable / Tasks / Courses tabs, the header binding dialog and course details with missing assessment data. Handled-task marks store only opaque IDs in an account-scoped browser key; verify switching accounts does not reuse another account's marks. These marks are local preferences, not D1 progress records or Moodle submission updates. Header export includes course and Moodle events; the tasks-panel export filters future, unhandled activities with a stated time.
+
 ## Updating a live installation
 
 Deploy new code against the existing DB binding. Preserve FEED_ENCRYPTION_KEY, existing migration history and user records. Generate new Drizzle migrations for deliberate schema changes. Replacing the database removes accounts; changing only the encryption key makes existing subscriptions unreadable. Planned key rotation requires a separate decrypt/re-encrypt migration.
@@ -45,5 +49,5 @@ Back up the database and key in separate protected administrative storage, outsi
 
 npm run build:static generates a restricted login-introduction preview. GitHub Pages can serve that preview but cannot run the Worker, bind D1 or provide working account/calendar APIs. The optional manual pages-demo workflow deploys only this restricted artifact; normal CI does not publish. See the [official Pages deployment action](https://github.com/actions/deploy-pages).
 
-No service worker is enabled for this account edition. Personal calendar data, credentials, account pages and API responses must not enter public/offline caches. Do not enable the archived private-edition PWA generator over this application.
+No service worker is enabled for this account edition. Personal calendar content, credentials, account pages and API responses must not enter public/offline caches. The local handled-task preference stores only opaque IDs under the current account scope; it does not provide offline calendars or cross-device progress. Do not enable the archived private-edition PWA generator over this application.
 

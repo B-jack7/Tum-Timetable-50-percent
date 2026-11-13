@@ -2,7 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { createLoginPage, requestLocalAuth, validateCredentials } from '../public/auth.js';
-import { createAccountPage, groupWeek, installForegroundRefresh, normalizeSubscription, parseCalendarPayload, requestAccountJson, safeActivityUrl, upcomingDeadlines } from '../public/account.js';
+import { createAccountPage as createPage, groupWeek, installForegroundRefresh, normalizeSubscription, parseCalendarPayload, requestAccountJson, safeActivityUrl, upcomingDeadlines } from '../public/account.js';
+
+const createAccountPage=(doc,locationRef,fetchImpl,now)=>createPage(doc,locationRef,fetchImpl,now,async data=>{doc.getElementById('calendar').textContent=JSON.stringify(data);});
 
 const json = (value, status=200) => new Response(JSON.stringify(value), { status, headers: { 'Content-Type':'application/json' } });
 class Element {

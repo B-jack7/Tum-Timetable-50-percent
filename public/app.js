@@ -1,16 +1,16 @@
 (() => {
   'use strict';
-  const data = window.TIMETABLE_DATA || { courses: [] };
-  const courses = Array.isArray(data.courses) ? data.courses.map((c, i) => ({ ...c, id: String(c.id ?? i), appointments: Array.isArray(c.appointments) ? c.appointments : [], color: i % 8 })) : [];
+  let data = window.TIMETABLE_DATA || { courses: [] };
+  let courses = Array.isArray(data.courses) ? data.courses.map((c, i) => ({ ...c, id: String(c.id ?? i), appointments: Array.isArray(c.appointments) ? c.appointments : [], color: i % 8 })) : [];
   const palette = [ ['#2276a9','#eaf3fa'], ['#42877d','#eaf4ef'], ['#8d6ca7','#f2edf6'], ['#b78937','#faf4e6'], ['#6586aa','#eef1f8'], ['#a66c71','#f8edef'], ['#527d56','#edf3e9'], ['#4c8c9c','#eaf4f5'] ];
   const $ = id => document.getElementById(id);
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const safeUrl = value => { if(typeof value!=='string'||!value.trim())return ''; try { const url = new URL(value,document.baseURI); return /^https?:$/.test(url.protocol) ? url.href : location.protocol==='file:'&&/^courses\//.test(value) ? value : ''; } catch { return ''; } };
   const studyLinks = c => (Array.isArray(c.studyLinks) ? c.studyLinks : []).filter(link => link && safeUrl(link.url));
-  const moodle = data.moodle && typeof data.moodle === 'object' ? data.moodle : null;
+  let moodle = data.moodle && typeof data.moodle === 'object' ? data.moodle : null;
   const moodleTaskMap = new Map();
   for (const task of Array.isArray(moodle?.tasks) ? moodle.tasks : []) if(task && task.id !== undefined && task.id !== null && !moodleTaskMap.has(String(task.id))) moodleTaskMap.set(String(task.id), { ...task, id: String(task.id) });
-  const moodleTasks = [...moodleTaskMap.values()], handledKey = 'tum-moodle-handled-v1';
+  let moodleTasks = [...moodleTaskMap.values()], handledKey = 'tum-moodle-handled-v2:'+String(data.storageScope||'session');
   let handledTasks = new Set(), showHandledTasks = false, expandTasks = false, handledStorageOK = true;
   try { const saved=JSON.parse(localStorage.getItem(handledKey)||'[]'); if(Array.isArray(saved)) handledTasks=new Set(saved.filter(id=>moodleTaskMap.has(String(id))).map(String)); } catch { handledStorageOK=false; }
   const taskDeadline = task => window.MOODLE_TASKS?.validDueAt(task.dueAt) ?? null;
@@ -18,17 +18,17 @@
   const taskKind = task => ({ submission:'提交任务', form:'表单', choice:'选择活动', external:'外部活动' }[task.kind] || 'Moodle 活动');
   const berlinDateTime = value => { const date=new Date(value); if(!Number.isFinite(date.getTime()))return ''; const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(date).filter(p=>p.type!=='literal').map(p=>[p.type,p.value])); return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}`; };
   function upcomingTasks(includeHandled=false, courseId=null) {
-    return moodleTasks.filter(task=>(includeHandled||!handledTasks.has(task.id))&&(courseId===null||String(task.courseId ?? '')===String(courseId))).sort((a,b)=>(taskDeadline(a)??Infinity)-(taskDeadline(b)??Infinity)||String(a.title||'').localeCompare(String(b.title||'')));
+    return moodleTasks.filter(task=>(includeHandled||!handledTasks.has(task.id))&&(courseId===null||String(task.courseId ?? '')===String(courseId))&&(taskDeadline(task)!==null?taskDeadline(task)>=Date.now():!task.dueDate||task.dueDate>=todayDate)).sort((a,b)=>(taskDeadline(a)??Date.parse((a.dueDate||'9999-01-01')+'T12:00:00Z'))-(taskDeadline(b)??Date.parse((b.dueDate||'9999-01-01')+'T12:00:00Z'))||String(a.title||'').localeCompare(String(b.title||'')));
   }
   function taskRow(task, compact=false) {
     const course=taskCourse(task), url=safeUrl(task.url), due=taskDeadline(task), handled=handledTasks.has(task.id);
-    return `<div class="moodle-task-row ${handled?'is-handled':''}" data-task-row="${esc(task.id)}"><label class="task-check"><input type="checkbox" data-task-check="${esc(task.id)}" ${handled?'checked':''} aria-label="${esc(task.title || 'Moodle 活动')}：已处理（仅本地标记）"><span>已处理</span></label><div class="task-main">${url?`<a class="task-title" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(task.title || 'Moodle 活动')} <span aria-hidden="true">↗</span></a>`:`<span class="task-title">${esc(task.title || 'Moodle 活动')}</span>`}<div class="task-meta">${course&&!compact?`<button type="button" class="task-course" data-course="${esc(course.id)}">${esc(course.title)}</button><span class="task-meta-separator">·</span>`:''}<span>${esc(taskKind(task))}</span>${task.optional?'<span class="task-optional">可选</span>':''}</div>${(compact||task.dueEstimated)&&task.note?`<p class="task-note ${compact?'':'task-note-preview'}">${esc(task.note)}${task.dueEstimated&&safeUrl(task.sourceUrl)?` <a href="${esc(safeUrl(task.sourceUrl))}" target="_blank" rel="noopener noreferrer">截止依据 ↗</a>`:''}</p>`:''}</div><div class="task-deadline">${due===null?'<span class="deadline-unknown">截止时间未公布</span>':`<span class="task-deadline-label">${due<=Date.now()?'已过截止，请核对':task.dueEstimated?'预计截止':'截止'} · 德国时间</span><time datetime="${esc(new Date(due).toISOString())}">${esc(berlinDateTime(due))}</time>`}</div></div>`;
+    return `<div class="moodle-task-row ${handled?'is-handled':''}" data-task-row="${esc(task.id)}"><label class="task-check"><input type="checkbox" data-task-check="${esc(task.id)}" ${handled?'checked':''} aria-label="${esc(task.title || 'Moodle 活动')}：已处理（仅本地标记）"><span>已处理</span></label><div class="task-main">${url?`<a class="task-title" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(task.title || 'Moodle 活动')} <span aria-hidden="true">↗</span></a>`:`<span class="task-title">${esc(task.title || 'Moodle 活动')}</span>`}<div class="task-meta">${course&&!compact?`<button type="button" class="task-course" data-course="${esc(course.id)}">${esc(course.title)}</button><span class="task-meta-separator">·</span>`:''}<span>${esc(taskKind(task))}</span>${task.optional?'<span class="task-optional">可选</span>':''}</div>${(compact||task.dueEstimated)&&task.note?`<p class="task-note ${compact?'':'task-note-preview'}">${esc(task.note)}${task.dueEstimated&&safeUrl(task.sourceUrl)?` <a href="${esc(safeUrl(task.sourceUrl))}" target="_blank" rel="noopener noreferrer">截止依据 ↗</a>`:''}</p>`:''}</div><div class="task-deadline">${due===null?`<span class="deadline-unknown">${task.dueDate?esc(task.dueDate)+' · 全天日历活动':'截止时间未公布'}</span>`:`<span class="task-deadline-label">${due<=Date.now()?'已过截止，请核对':task.dueEstimated?'预计截止':'截止'} · 德国时间</span><time datetime="${esc(new Date(due).toISOString())}">${esc(berlinDateTime(due))}</time>`}</div></div>`;
   }
   function renderTaskPanel() {
     const panel=$('moodle-tasks'); if(!panel)return;
     panel.hidden=!moodle; if(!moodle)return;
     const tasks=upcomingTasks(showHandledTasks), unhandled=upcomingTasks(false), shown=expandTasks?tasks:tasks.slice(0,3), exportable=unhandled.filter(task=>taskDeadline(task)!==null&&taskDeadline(task)>Date.now()), dashboard=safeUrl(moodle.dashboardUrl), checked=berlinDateTime(moodle.checkedAt);
-    panel.innerHTML=`<div class="tasks-heading"><div class="tasks-heading-title"><h2 id="tasks-title">待办与截止</h2><span class="tasks-count">${unhandled.length}</span></div><div class="tasks-actions"><label class="handled-toggle"><input type="checkbox" id="show-handled-tasks" ${showHandledTasks?'checked':''}>查看已处理</label>${dashboard?`<a class="tasks-dashboard" href="${esc(dashboard)}" target="_blank" rel="noopener noreferrer">Moodle 总览 ↗</a>`:''}<button type="button" id="download-task-calendar" class="calendar-download" ${!exportable.length?'disabled':''} title="下载未处理的未来截止，提醒为截止前 1 天和 2 小时">导入日历 <span aria-hidden="true">↓</span></button></div></div><div class="tasks-list">${shown.length?shown.map(task=>taskRow(task)).join(''):`<p class="tasks-empty">${moodleTasks.length&&!unhandled.length?'当前快照中没有未标记处理的后续任务。':'当前快照中暂无后续任务。'}</p>`}</div><div class="tasks-footer"><p>处理标记仅保存在此浏览器，不代表 Moodle 已提交。${handledStorageOK?'':' 当前浏览器无法保存标记。'}<span>${checked?`Moodle 核对于 ${esc(checked)} · 德国时间 · 手动快照`:'Moodle 手动快照'}</span></p>${tasks.length>3?`<button type="button" id="expand-moodle-tasks" aria-expanded="${expandTasks}">${expandTasks?'收起':`展开全部（${tasks.length}）`} ${expandTasks?'↑':'↓'}</button>`:''}</div><p id="task-calendar-status" class="task-calendar-status" role="status"></p>`;
+    panel.innerHTML=`<div class="tasks-heading"><div class="tasks-heading-title"><h2 id="tasks-title">待办与截止</h2><span class="tasks-count">${unhandled.length}</span></div><div class="tasks-actions"><label class="handled-toggle"><input type="checkbox" id="show-handled-tasks" ${showHandledTasks?'checked':''}>查看已处理</label>${dashboard?`<a class="tasks-dashboard" href="${esc(dashboard)}" target="_blank" rel="noopener noreferrer">Moodle 总览 ↗</a>`:''}<button type="button" id="download-task-calendar" class="calendar-download" ${!exportable.length?'disabled':''} title="下载未处理的未来截止，提醒为截止前 1 天和 2 小时">导入日历 <span aria-hidden="true">↓</span></button></div></div><div class="tasks-list">${shown.length?shown.map(task=>taskRow(task)).join(''):`<p class="tasks-empty">${moodleTasks.length&&!unhandled.length?'当前快照中没有未标记处理的后续任务。':'当前快照中暂无后续任务。'}</p>`}</div><div class="tasks-footer"><p>处理标记仅保存在此浏览器，不代表 Moodle 已提交。${handledStorageOK?'':' 当前浏览器无法保存标记。'}<span>${checked?`Moodle 日历同步于 ${esc(checked)} · 德国时间`:'尚未同步 Moodle 日历'}</span></p>${tasks.length>3?`<button type="button" id="expand-moodle-tasks" aria-expanded="${expandTasks}">${expandTasks?'收起':`展开全部（${tasks.length}）`} ${expandTasks?'↑':'↓'}</button>`:''}</div><p id="task-calendar-status" class="task-calendar-status" role="status"></p>`;
     syncMainLayout();
   }
   function renderCourseMoodle(c) {
@@ -62,7 +62,7 @@
   const dateParts = (date = new Date()) => Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:data.timezone || 'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(date).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
   const nowParts = dateParts();
   const todayDate = `${nowParts.year}-${nowParts.month}-${nowParts.day}`;
-  const minutes = time => { const m=String(time ?? '').match(/^(\d{1,2}):(\d{2})/); return m && Number(m[1])<24 && Number(m[2])<60 ? Number(m[1])*60+Number(m[2]) : null; };
+  const minutes = time => { const m=String(time ?? '').match(/^(\d{1,2}):(\d{2})/); return m && (Number(m[1])<24&&Number(m[2])<60||Number(m[1])===24&&Number(m[2])===0) ? Number(m[1])*60+Number(m[2]) : null; };
   const timeLabel = value => { const n=minutes(value); return n === null ? '时间待定' : `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`; };
   const formatDate = (date, year = false) => { if (!validDate(date)) return '日期待定'; const d=dateObj(date); return `${year?`${d.getUTCFullYear()} 年 `:''}${d.getUTCMonth()+1} 月 ${d.getUTCDate()} 日`; };
   const shortDate = date => validDate(date) ? `${Number(date.slice(5,7))}/${Number(date.slice(8,10))}` : '日期待定';
@@ -73,7 +73,7 @@
   const kindLabel = kind => kindLabels[kind] || String(kind || '');
   const isRecording = a => a.kind === 'tutorial recording';
   const cancelled = a => a.cancelled === true || /cancelled|canceled|abgesagt/i.test(String(a.kind || ''));
-  const allEvents = courses.flatMap(c=>c.appointments.map((a,i)=>({...a,course:c,key:`${c.id}:${i}`,date:String(a.date || '').slice(0,10),startMinute:minutes(a.start),endMinute:minutes(a.end)})));
+  let allEvents = courses.flatMap(c=>c.appointments.map((a,i)=>({...a,course:c,key:`${c.id}:${i}`,date:String(a.date || '').slice(0,10),startMinute:minutes(a.start),endMinute:minutes(a.end)})));
   let currentWeek = monday(todayDate), currentView = 'week', query = '', includeWaiting = true, lastFocus = null;
   const mobileScreen = window.matchMedia('(max-width: 600px)');
   let mobileMainTab = 'schedule';
@@ -123,11 +123,11 @@
     }
     sorted.forEach(a=>{ if(group.length && a.startMinute>=groupEnd){flush();groupEnd=-1;} group.push({...a});groupEnd=Math.max(groupEnd,a.endMinute); });flush();return result;
   }
-  function statusTag(c) { return c.status==='waiting' ? '<span class="tag waiting">候补 / 等待审核</span>' : c.status==='confirmed' ? '<span class="tag">已获确认名额</span>' : '<span class="tag">注册状态未记录</span>'; }
+  function statusTag(c) { return c.status==='waiting' ? '<span class="tag waiting">候补 / 等待审核</span>' : c.status==='confirmed' ? '<span class="tag">已获确认名额</span>' : c.status==='calendar' ? '<span class="tag">日历安排</span>' : '<span class="tag">注册状态未记录</span>'; }
   function assessment(c) { return String(c.assessment || c.assessmentOriginal || '课程页面暂未公布考核方式，请查看 TUMonline 或课程通知。'); }
   function renderStudyLinks(c) {
     const links=studyLinks(c);
-    if(!links.length) return '';
+    if(!links.length) return '<section class="study-section" aria-label="复习与刷题"><h3 class="detail-section-title">复习与刷题</h3><p class="detail-text">日历未提供复习网站链接。</p></section>';
     const studyTarget = link => {
       try {
         const base=new URL(document.baseURI),url=new URL(safeUrl(link.url),base),coursePath=new URL('courses/',base).pathname;
@@ -144,14 +144,14 @@
     const term=String(data.term || '');
     $('term-label').textContent = /^(\d{4})\s*W$/i.test(term) ? `${term.slice(0,4)} / ${Number(term.slice(0,4))+1} 冬季学期 · WINTER SEMESTER` : term ? `${term} · MEIN STUNDENPLAN` : 'MEIN STUNDENPLAN';
     $('course-count').textContent=courses.length;
-    $('snapshot-note').textContent=`课程信息整理于 ${String(data.updatedAt || '未记录').slice(0,10)} · 手动快照`;
+    $('snapshot-note').textContent=data.updatedAt?`最近同步 ${berlinDateTime(data.updatedAt)} · 德国时间`:'绑定你的 TUMonline 日历后自动同步';
     if(safeUrl(data.coursesListUrl)) $('official-list').href=safeUrl(data.coursesListUrl);
     const currentMinutes=Number(nowParts.hour)*60+Number(nowParts.minute);
     const next=allEvents.filter(a=>!cancelled(a)&&!isRecording(a)&&validTimed(a)&&a.course.status!=='waiting'&&(a.date>todayDate || a.date===todayDate&&a.endMinute>currentMinutes)).sort(sortEvents)[0];
     if(next) {
       const when=next.date===todayDate ? (next.startMinute<=currentMinutes ? '正在进行' : '今天') : `${formatDate(next.date)} ${dayLabel(next.date)}`;
       $('next-class').innerHTML=courseButton(next.course,`<p class="next-label">${next.date===todayDate&&next.startMinute<=currentMinutes?'NOW · 正在上课':'UP NEXT · 下一堂课'}</p><p class="next-time">${esc(when)} &nbsp; ${esc(timeLabel(next.start))}—${esc(timeLabel(next.end))}</p><p class="next-title">${esc(next.course.title)}</p><p class="next-location">⌖ &nbsp;${esc(location(next))}</p>`,'next-open',`data-appointment="${esc(next.key)}"`);
-    } else $('next-class').innerHTML='<p class="next-label">YOUR STUDY, AT A GLANCE</p><p class="next-time">学习安排，一目了然</p><p class="next-location">按周浏览课程，点击查看上课地点和考核方式。</p>';
+    } else $('next-class').innerHTML='<p class="next-label">YOUR STUDY SPACE</p><p class="next-time">我的学习安排</p><p class="next-location">按周浏览课程，点击查看上课地点和课程详情。</p>';
   }
   function renderCalendar(events, conflicts) {
     const timed=events.filter(validTimed), conflictKeys=new Set(conflicts.flatMap(pair=>pair.map(a=>a.key)));
@@ -175,10 +175,10 @@
     }).join('')}</div>`;
     $('mobile-agenda').innerHTML=days.map(date=>{
       const daily=events.filter(a=>a.date===date).sort(sortEvents);
-      return `<section class="agenda-day"><div class="agenda-day-heading ${date===todayDate?'is-today':''}"><h3>${dayLabel(date)} · ${formatDate(date)}${date===todayDate?' · 今天':''}</h3><span class="day-number">${dateObj(date).getUTCDate()}</span></div><div class="agenda-events">${daily.length?daily.map(a=>courseButton(a.course,`<span class="agenda-time">${a.startMinute===null?'时间待定':`${esc(timeLabel(a.start))}<br>${esc(timeLabel(a.end))}`}</span><span><span class="agenda-course">${esc(a.course.title)}</span><span class="agenda-location" style="display:block">⌖ ${esc(location(a))}</span>${isRecording(a)?'<span class="event-flags">预录教程发布 · 日程提醒</span>':''}${conflictKeys.has(a.key)?'<span class="event-flags">时间冲突</span>':''}${a.course.status==='waiting'?'<span class="event-flags">候补 / 等待审核</span>':''}</span>`,`agenda-event ${a.course.status==='waiting'?'is-waiting':''}`,`data-appointment="${esc(a.key)}"`)).join(''):'<p class="agenda-empty">没有课程安排</p>'}</div></section>`;
+      return `<section class="agenda-day"><div class="agenda-day-heading ${date===todayDate?'is-today':''}"><h3>${dayLabel(date)} · ${formatDate(date)}${date===todayDate?' · 今天':''}</h3><span class="day-number">${dateObj(date).getUTCDate()}</span></div><div class="agenda-events">${daily.length?daily.map(a=>courseButton(a.course,`<span class="agenda-time">${a.allDay?'全天':a.startMinute===null?'时间待定':`${esc(timeLabel(a.start))}<br>${esc(timeLabel(a.end))}`}</span><span><span class="agenda-course">${esc(a.course.title)}</span><span class="agenda-location" style="display:block">⌖ ${esc(location(a))}</span>${isRecording(a)?'<span class="event-flags">预录教程发布 · 日程提醒</span>':''}${conflictKeys.has(a.key)?'<span class="event-flags">时间冲突</span>':''}${a.course.status==='waiting'?'<span class="event-flags">候补 / 等待审核</span>':''}</span>`,`agenda-event ${a.course.status==='waiting'?'is-waiting':''}`,`data-appointment="${esc(a.key)}"`)).join(''):'<p class="agenda-empty">没有课程安排</p>'}</div></section>`;
     }).join('');
     const untimed=events.filter(a=>!validTimed(a));
-    $('untimed-events').innerHTML=untimed.length?`<div class="untimed-block"><h3>本周其他安排 · 时间待定</h3>${untimed.map(a=>courseButton(a.course,`<span>${formatDate(a.date)} ${dayLabel(a.date)}</span>${esc(a.course.title)}<span>${esc(location(a))}</span>`,'untimed-item',`data-appointment="${esc(a.key)}"`)).join('')}</div>`:'';
+    $('untimed-events').innerHTML=untimed.length?`<div class="untimed-block"><h3>本周全天与其他安排</h3>${untimed.map(a=>courseButton(a.course,`<span>${formatDate(a.date)} ${dayLabel(a.date)}</span>${esc(a.course.title)}<span>${esc(location(a))}</span>`,'untimed-item',`data-appointment="${esc(a.key)}"`)).join('')}</div>`:'';
     if(!events.length) {
       const upcoming=allEvents.filter(a=>!cancelled(a)&&visibleCourse(a.course)&&validDate(a.date)&&a.date>=addDays(currentWeek,7)).sort(sortEvents)[0];
       const empty=`<div class="empty-week"><span class="empty-icon" aria-hidden="true">▦</span><h3>${query?'本周没有匹配的课程':'这一周没有已公布的课程安排'}</h3><p>${query?'试试其他课程名称或教室。':'你可以切换周次，或在「全部课程」里查看课程详情。'}</p>${upcoming?`<button class="primary-button" type="button" data-jump="${esc(upcoming.date)}">查看下一次安排 · ${shortDate(upcoming.date)}</button>`:''}</div>`;
@@ -221,7 +221,7 @@
     const c=courses.find(course=>course.id===id);if(!c)return;
     const selected=allEvents.find(a=>a.key===key), list=allEvents.filter(a=>a.course.id===c.id).sort(sortEvents), source=safeUrl(c.sourceUrl);
     const details=[['课程编号',c.number],['注册小组',c.group],['授课教师',(c.lecturers||[]).join(' · ')],['授课语言',c.language]].filter(row=>row[1]);
-    $('course-detail').innerHTML=`<div class="detail-heading"><h2 id="detail-title">${esc(c.title)}</h2><div class="detail-tags"><span class="tag">${esc(labels[c.type]||c.type||'课程')}</span>${c.sws?`<span class="tag">${esc(c.sws)} SWS</span>`:''}${statusTag(c)}</div></div><dl class="detail-meta">${details.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${renderCourseMoodle(c)}${renderStudyLinks(c)}${selected?`<section class="selected-appointment"><h3 class="detail-section-title">${selected.kind?esc(kindLabel(selected.kind)):'这一次课'} · ${formatDate(selected.date)} ${dayLabel(selected.date)}</h3><p class="detail-text">${esc(timeLabel(selected.start))}—${esc(timeLabel(selected.end))}<br>⌖ ${esc(location(selected))}${selected.note?`<br>${esc(selected.note)}`:''}</p>${safeUrl(selected.roomUrl)?`<a class="text-button" style="display:inline-block;margin-top:8px;color:var(--blue)" href="${esc(safeUrl(selected.roomUrl))}" target="_blank" rel="noopener noreferrer">查看教室详情 ↗</a>`:''}</section>`:''}<section class="assessment-box"><h3 class="detail-section-title">考核方式</h3><p class="detail-text">${esc(assessment(c))}</p>${safeUrl(c.assessmentUrl)?`<a href="${esc(safeUrl(c.assessmentUrl))}" target="_blank" rel="noopener noreferrer" class="assessment-source">查看考核信息官方出处 ↗</a>`:''}${c.assessment&&c.assessmentOriginal&&c.assessment!==c.assessmentOriginal?`<details class="original-assessment"><summary>查看原文</summary><p>${esc(c.assessmentOriginal)}</p></details>`:''}</section>${c.description?`<section class="detail-section"><h3 class="detail-section-title">课程信息</h3><p class="detail-text">${esc(c.description)}</p></section>`:''}<section class="detail-section"><h3 class="detail-section-title">上课安排 <span style="color:#9aa7b0;font-size:11px;font-weight:400">${list.length?`${list.length} 次已公布安排`:''}</span></h3>${list.length?`<details class="all-appointments" ${list.length<=8?'open':''}><summary>查看全部日期、时间和地点</summary><ul class="appointment-list">${list.map(appointmentRow).join('')}</ul></details>`:'<p class="detail-text">暂无可排入周历的具体时段，请查看补充说明或课程通知。</p>'}</section>${Array.isArray(c.notes)&&c.notes.length?`<section class="detail-section"><h3 class="detail-section-title">补充说明</h3><ul class="detail-notes">${c.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></section>`:''}<div class="detail-footer">${source?`<a class="official-link" href="${esc(source)}" target="_blank" rel="noopener noreferrer">在 TUMonline 查看原始课程 ↗</a>`:''}<p>课程信息整理于 ${esc(String(data.updatedAt||'未记录').slice(0,10))}<br>后续变更以官方课程页面为准。</p></div>`;
+    $('course-detail').innerHTML=`<div class="detail-heading"><h2 id="detail-title">${esc(c.title)}</h2><div class="detail-tags"><span class="tag">${esc(labels[c.type]||c.type||'课程')}</span>${c.sws?`<span class="tag">${esc(c.sws)} SWS</span>`:''}${statusTag(c)}</div></div><dl class="detail-meta">${details.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${renderCourseMoodle(c)}${renderStudyLinks(c)}${selected?`<section class="selected-appointment"><h3 class="detail-section-title">${selected.kind?esc(kindLabel(selected.kind)):'这一次课'} · ${formatDate(selected.date)} ${dayLabel(selected.date)}</h3><p class="detail-text">${selected.allDay?'全天':`${esc(timeLabel(selected.start))}—${esc(timeLabel(selected.end))}`}<br>⌖ ${esc(location(selected))}${selected.note?`<br>${esc(selected.note)}`:''}</p>${safeUrl(selected.roomUrl)?`<a class="text-button" style="display:inline-block;margin-top:8px;color:var(--blue)" href="${esc(safeUrl(selected.roomUrl))}" target="_blank" rel="noopener noreferrer">查看教室详情 ↗</a>`:''}</section>`:''}<section class="assessment-box"><h3 class="detail-section-title">考核方式</h3><p class="detail-text">${esc(assessment(c))}</p>${safeUrl(c.assessmentUrl)?`<a href="${esc(safeUrl(c.assessmentUrl))}" target="_blank" rel="noopener noreferrer" class="assessment-source">查看考核信息官方出处 ↗</a>`:''}${c.assessment&&c.assessmentOriginal&&c.assessment!==c.assessmentOriginal?`<details class="original-assessment"><summary>查看原文</summary><p>${esc(c.assessmentOriginal)}</p></details>`:''}</section>${c.description?`<section class="detail-section"><h3 class="detail-section-title">课程信息</h3><p class="detail-text">${esc(c.description)}</p></section>`:''}<section class="detail-section"><h3 class="detail-section-title">上课安排 <span style="color:#9aa7b0;font-size:11px;font-weight:400">${list.length?`${list.length} 次已公布安排`:''}</span></h3>${list.length?`<details class="all-appointments" ${list.length<=8?'open':''}><summary>查看全部日期、时间和地点</summary><ul class="appointment-list">${list.map(appointmentRow).join('')}</ul></details>`:'<p class="detail-text">暂无可排入周历的具体时段，请查看补充说明或课程通知。</p>'}</section>${Array.isArray(c.notes)&&c.notes.length?`<section class="detail-section"><h3 class="detail-section-title">补充说明</h3><ul class="detail-notes">${c.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></section>`:''}<div class="detail-footer">${source?`<a class="official-link" href="${esc(source)}" target="_blank" rel="noopener noreferrer">在 TUMonline 查看原始课程 ↗</a>`:''}<p>课程信息整理于 ${esc(String(data.updatedAt||'未记录').slice(0,10))}<br>后续变更以官方课程页面为准。</p></div>`;
     lastFocus=document.activeElement; if(!$('course-dialog').open)$('course-dialog').showModal();
     $('course-dialog').scrollTop=0;$('close-dialog').focus();
   }
@@ -243,5 +243,21 @@
   document.addEventListener('click',event=>{if(event.target.closest('#expand-moodle-tasks')){expandTasks=!expandTasks;renderTaskPanel();}if(event.target.closest('#download-task-calendar'))downloadTaskCalendar();});
   document.addEventListener('click',event=>{const tab=event.target.closest('[data-main-tab]');if(tab)selectMainTab(tab.dataset.mainTab);});
   mobileScreen.addEventListener('change',()=>{if(mobileScreen.matches)mobileMainTab=currentView==='courses'?'courses':'schedule';render();renderTaskPanel();});
+  window.TimetableView={
+    update(nextData){
+      const previousScope=data.storageScope;
+      data=nextData||{courses:[]};
+      courses=Array.isArray(data.courses)?data.courses.map((c,i)=>({...c,id:String(c.id??i),appointments:Array.isArray(c.appointments)?c.appointments:[],color:i%8})):[];
+      moodle=data.moodle&&typeof data.moodle==='object'?data.moodle:null;
+      moodleTaskMap.clear();
+      for(const task of Array.isArray(moodle?.tasks)?moodle.tasks:[])if(task&&task.id!==undefined&&!moodleTaskMap.has(String(task.id)))moodleTaskMap.set(String(task.id),{...task,id:String(task.id)});
+      moodleTasks=[...moodleTaskMap.values()];
+      handledKey='tum-moodle-handled-v2:'+String(data.storageScope||'session');
+      if(previousScope!==data.storageScope){handledTasks=new Set();query='';$('search').value='';if($('course-dialog').open)$('course-dialog').close();}
+      try{const saved=JSON.parse(localStorage.getItem(handledKey)||'[]');if(Array.isArray(saved))handledTasks=new Set(saved.filter(id=>moodleTaskMap.has(String(id))).map(String));}catch{handledStorageOK=false;}
+      allEvents=courses.flatMap(c=>c.appointments.map((a,i)=>({...a,course:c,key:`${c.id}:${i}`,date:String(a.date||'').slice(0,10),startMinute:minutes(a.start),endMinute:minutes(a.end)})));
+      renderHeader();render();renderTaskPanel();
+    },
+  };
   renderHeader();render();renderTaskPanel();
 })();

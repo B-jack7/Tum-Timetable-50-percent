@@ -4,7 +4,7 @@ import {CalendarError} from './calendars.mjs';
 import {createHash} from 'node:crypto';
 
 const SECURITY={'X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','X-Frame-Options':'DENY','Permissions-Policy':'camera=(), microphone=(), geolocation=()',
-  'Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; manifest-src 'self'"};
+  'Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; manifest-src 'self'"};
 async function jsonBody(request){
   if(!/^application\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))throw new LocalAuthError(415,'json_required','请使用本站表单。');
   const reader=request.body?.getReader();if(!reader)throw new LocalAuthError(400,'invalid_request','请填写订阅链接。');

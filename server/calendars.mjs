@@ -351,7 +351,7 @@ export async function fetchAndParseCalendar(source, value, opts = {}) {
   let timer;
   const timeout = new Promise((_, reject) => { timer = setTimeout(() => { controller.abort(); reject(new CalendarError('calendar-timeout', 'The calendar source did not respond in time.')); }, timeoutMs); });
   const work = async () => {
-    const response = await fetchImpl(url.href, { method: 'GET', redirect: 'error', credentials: 'omit', cache: 'no-store', headers: { Accept: 'text/calendar, application/ics;q=0.9' }, signal: controller.signal });
+    const response = await fetchImpl(url.href, { method: 'GET', redirect: 'manual', credentials: 'omit', cache: 'no-store', headers: { Accept: 'text/calendar, application/ics;q=0.9' }, signal: controller.signal });
     if (response.status !== 200 || response.redirected) fail('source-unavailable', 'The calendar source is unavailable or requires a new subscription link.');
     if (response.url && response.url !== url.href) fail('source-unavailable', 'The calendar source redirected to a different address.');
     const type = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();

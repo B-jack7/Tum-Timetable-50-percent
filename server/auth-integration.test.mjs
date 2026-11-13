@@ -48,3 +48,16 @@ test('removing a subscription while it refreshes cannot resurrect the deleted re
     assert.equal(await store.feeds.get('alice','tumonline'),null);assert.equal(result.events.length,0);assert.equal(result.feeds[0].bound,false);
   }finally{db.close();}
 });
+
+test('a failed source recovers after a minute, then successful data uses the normal cache',async()=>{
+  let calls=0,available=false;
+  const{db,service,advance}=await fixture(async()=>{calls++;if(!available)throw new TypeError('fictional source unavailable');return response('Recovered');});
+  try{
+    const failed=await service.bind('alice',{source:'tumonline',url:url('recovery-secret')});
+    assert.equal(failed.feeds[0].error,'source-unavailable');assert.equal(calls,1);
+    available=true;advance(59_999);await service.read('alice');assert.equal(calls,1);
+    advance(1);const recovered=await service.read('alice');assert.equal(calls,2);assert.equal(recovered.feeds[0].error,null);assert.deepEqual(recovered.events.map(event=>event.title),['Recovered']);
+    advance(14*60_000);await service.read('alice');assert.equal(calls,2);
+    advance(60_000);await service.read('alice');assert.equal(calls,3);
+  }finally{db.close();}
+});

@@ -168,7 +168,7 @@ test('per-source event count, descriptions and structural limits are bounded', (
 test('fetch is an anonymous no-store GET with no redirects and no cookies or authorization', async () => {
   let call;
   const result = await fetchAndParseCalendar('tumonline', TUM, { now: NOW, fetchImpl: async (url, options) => { call = { url, options }; return response(BERLIN_FIXTURE); } });
-  assert.equal(call.options.redirect, 'error'); assert.equal(call.options.credentials, 'omit'); assert.equal(call.options.cache, 'no-store');
+  assert.equal(call.options.redirect, 'manual'); assert.equal(call.options.credentials, 'omit'); assert.equal(call.options.cache, 'no-store');
   assert.equal(call.options.method, 'GET'); assert.deepEqual(Object.keys(call.options.headers), ['Accept']);
   assert.equal(result.events.length, 5);
   assert.ok(!JSON.stringify(result).includes('fake-secret-token'));
@@ -180,6 +180,14 @@ test('upstream HTML, missing/misleading MIME, redirects, bad UTF-8 and status fa
   await assert.rejects(fetchAndParseCalendar('tumonline', TUM, { fetchImpl: async () => { throw new TypeError('redirect to fake-secret-token'); } }), errorCode('source-unavailable'));
   const redirected = response(BERLIN_FIXTURE); Object.defineProperty(redirected, 'redirected', { value: true });
   await assert.rejects(fetchAndParseCalendar('tumonline', TUM, { fetchImpl: async () => redirected }), errorCode('source-unavailable'));
+  let requests = 0;
+  await assert.rejects(fetchAndParseCalendar('tumonline', TUM, { fetchImpl: async (url, options) => {
+    requests++;
+    assert.equal(url, TUM);
+    assert.equal(options.redirect, 'manual');
+    return new Response(null, { status: 302, headers: { Location: 'https://outside.example.invalid/calendar' } });
+  } }), errorCode('source-unavailable'));
+  assert.equal(requests, 1, 'a redirect must be rejected without making a second request');
 });
 
 test('content-length and streamed bodies are limited after decompression', async () => {

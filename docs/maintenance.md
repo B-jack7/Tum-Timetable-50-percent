@@ -2,7 +2,9 @@
 
 ## Current application
 
-Edit browser source in public/, routing in server/application.mjs, authentication in server/local-auth.mjs and calendar integration in server/calendar-service.mjs. worker/index.mjs binds the application to D1. scripts/build-worker.mjs embeds an explicit UI allowlist and produces dist/server/index.js. Do not hand-edit generated assets or bundled output.
+Edit browser source in public/, routing in server/application.mjs, authentication in server/local-auth.mjs and calendar integration in server/calendar-service.mjs. public/account.js loads the authenticated response and public/calendar-adapter.js converts it for the restored style.css/app.js/tasks.js timetable view. worker/index.mjs binds the application to D1. scripts/build-worker.mjs embeds an explicit UI allowlist and produces dist/server/index.js. That allowlist includes the restored timetable renderer, task tools and adapter as well as login/account assets, icons and the manifest; use the script as the source of truth. Do not hand-edit generated assets or bundled output.
+
+Keep the current navigation descriptions aligned with the UI: desktop header/next-class card, statistics, weekly grid, All courses switch and tasks below the timetable; mobile Timetable / Tasks / Courses tabs. Account, source status, binding and logout belong to the header's account-and-binding dialog. Only the layout and rendering tools are reused from the private edition; do not reintroduce its source course records, assessment text, task snapshot or private links.
 
 Use Node 24 or newer. Before release:
 
@@ -29,11 +31,17 @@ Subscription URLs are bearer secrets. Only ciphertext belongs in feeds.encrypted
 
 public/data.js remains intentionally empty: no legacy personal course records or Moodle task snapshot. Each account starts empty and receives only its owner's bound calendars. Never populate a shared static file from a user's live account. Do not commit credentials, raw subscriptions, database copies, private calendar exports, session tokens, source PDFs or private imports.
 
+Calendar-to-view conversion must preserve Europe/Berlin wall times and exclusive all-day end dates. Do not infer assignment submission status, course registration, teachers, credits or assessment rules from missing calendar fields. Course details must explicitly say when the calendar did not provide assessment information. Keep studyLinks empty unless a separately verified, authorized source is deliberately connected.
+
+Handled-task preferences are the only account-view state retained in browser storage: opaque task IDs under an opaque current-account scope. Do not put titles, calendar bodies, raw user identifiers, subscriptions or credentials there. Preserve scope separation when switching accounts and make clear that these local marks neither update Moodle nor synchronize across devices. Header ICS export and the tasks panel's filtered deadline export have different scopes; keep their descriptions accurate.
+
 The account edition does not enable the legacy service worker. Account HTML and APIs must remain private, no-store, with authorization enforced before data is returned. Do not promise offline private data or cross-device synchronization of archived NLP progress. npm run build:static and GitHub Pages provide only a login introduction, without a working authentication backend.
+
+Keep the owner-authorized full-page private-edition screenshot and the application login screenshot. The current app-calendar.jpg preview must use fictional data and be captioned as a layout example; do not replace it with a real account's calendar. Image examples are not application seed data and new accounts must remain empty.
 
 ## Archived NLP source
 
-The bilingual practice material remains separately maintained source. It is not in the current Worker UI allowlist and is not connected to account progress. The editable bank is authoring/in2361/content.json. Preserve its 91 question IDs and update both languages, answers, provenance, source qualifications and excerpts together.
+The bilingual practice material remains separately maintained source. It is not in the current Worker UI allowlist and is not connected to account progress. Restoring course-detail sections does not deploy or link this bank, import private practice progress or automatically fetch Moodle materials. The editable bank is authoring/in2361/content.json. Preserve its 91 question IDs and update both languages, answers, provenance, source qualifications and excerpts together.
 
 npm run nlp:rebuild rebuilds public/courses/in2361/data.js with the Node/KaTeX renderer and checks IDs and evidence images. It does not deploy, fetch Moodle, reset progress or implement account synchronization. Review an expanded answer and its source accordion if releasing this material separately.
 

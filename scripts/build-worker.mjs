@@ -5,7 +5,7 @@ const root=resolve(import.meta.dirname,'..');
 const output=resolve(root,'dist');
 if(output!==root+'/dist'&&output!==root+'\\dist')throw Error('Unexpected output path');
 await rm(output,{recursive:true,force:true});
-const files=['index.html','login.html','auth.js','auth.css','account.html','account.js','account.css','icons/icon-192.png','icons/icon-512.png','icons/icon.svg'];
+const files=['index.html','login.html','auth.js','auth.css','account.html','account.js','account.css','style.css','app.js','tasks.js','calendar-adapter.js','icons/icon-192.png','icons/icon-512.png','icons/icon.svg'];
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.svg':'image/svg+xml'};
 const assets={};
 for(const path of files){

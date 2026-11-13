@@ -27,8 +27,9 @@ export function createCalendarService({store,encryptionKey,now=()=>Date.now(),fe
     }catch{throw new CalendarError('feed-unavailable','Rebind this calendar.');}
   }
   async function refreshRow(row,{force=false}={}){
-    // updatedAt also backs off failed requests, preserving lastSynced and the last good events.
-    if(!force&&row.updatedAt&&now()-row.updatedAt<TTL)return;
+    // Preserve good data; a failed source can recover after a minute rather than waiting the full cache TTL.
+    const retryInterval=row.lastError?60_000:TTL;
+    if(!force&&row.updatedAt&&now()-row.updatedAt<retryInterval)return;
     const identity=JSON.stringify([row.userId,row.source,row.encryptedUrl]);
     if(running.has(identity))return running.get(identity);
     const task=(async()=>{
