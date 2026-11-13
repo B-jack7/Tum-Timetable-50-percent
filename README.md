@@ -1,4 +1,4 @@
-# Tum Timetable
+# Tum Timetable [50%]
 
 Personal application accounts with private TUMonline and Moodle calendar subscriptions. New accounts start empty; the owner's old timetable and private links are not included.
 
