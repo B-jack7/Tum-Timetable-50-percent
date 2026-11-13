@@ -1,0 +1,3244 @@
+{
+  "revision": "2026-11-13-bilingual-source-review",
+  "summary": {
+    "questions": 91,
+    "bilingual": 91,
+    "sourcePageImages": 148,
+    "unresolvedIds": [
+      "ws21-1-4"
+    ]
+  },
+  "questions": [
+    {
+      "id": "ss20-1-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "1_Introduction.pdf",
+          "pages": [
+            7,
+            11,
+            19,
+            36
+          ],
+          "links": [
+            {
+              "label": "p.7",
+              "url": "sources/evidence/1_Introduction-p7.webp"
+            },
+            {
+              "label": "p.11",
+              "url": "sources/evidence/1_Introduction-p11.webp"
+            },
+            {
+              "label": "p.19",
+              "url": "sources/evidence/1_Introduction-p19.webp"
+            },
+            {
+              "label": "p.36",
+              "url": "sources/evidence/1_Introduction-p36.webp"
+            }
+          ],
+          "title": "1_Introduction.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-1-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "3_N-gramLangageModels.pdf",
+          "pages": [
+            4,
+            5,
+            6
+          ],
+          "links": [
+            {
+              "label": "p.4",
+              "url": "sources/evidence/3_N-gramLangageModels-p4.webp"
+            },
+            {
+              "label": "p.5",
+              "url": "sources/evidence/3_N-gramLangageModels-p5.webp"
+            },
+            {
+              "label": "p.6",
+              "url": "sources/evidence/3_N-gramLangageModels-p6.webp"
+            }
+          ],
+          "title": "3_N-gramLangageModels.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-2-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "4_LogisticRegressionAndTextClassification.pdf",
+          "pages": [
+            17,
+            18
+          ],
+          "links": [
+            {
+              "label": "p.17",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p17.webp"
+            },
+            {
+              "label": "p.18",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p18.webp"
+            }
+          ],
+          "title": "4_LogisticRegressionAndTextClassification.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-2-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "4_LogisticRegressionAndTextClassification.pdf",
+          "pages": [
+            18,
+            19
+          ],
+          "links": [
+            {
+              "label": "p.18",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p18.webp"
+            },
+            {
+              "label": "p.19",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p19.webp"
+            }
+          ],
+          "title": "4_LogisticRegressionAndTextClassification.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-2-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "4_LogisticRegressionAndTextClassification.pdf",
+          "pages": [
+            12,
+            14
+          ],
+          "links": [
+            {
+              "label": "p.12",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p12.webp"
+            },
+            {
+              "label": "p.14",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p14.webp"
+            }
+          ],
+          "title": "4_LogisticRegressionAndTextClassification.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-2-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "4_LogisticRegressionAndTextClassification.pdf",
+          "pages": [
+            14,
+            15,
+            16
+          ],
+          "links": [
+            {
+              "label": "p.14",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p14.webp"
+            },
+            {
+              "label": "p.15",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p15.webp"
+            },
+            {
+              "label": "p.16",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p16.webp"
+            }
+          ],
+          "title": "4_LogisticRegressionAndTextClassification.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-2-5",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            23,
+            24
+          ],
+          "links": [
+            {
+              "label": "p.23",
+              "url": "sources/evidence/9_MaskedLMs-p23.webp"
+            },
+            {
+              "label": "p.24",
+              "url": "sources/evidence/9_MaskedLMs-p24.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "4_LogisticRegressionAndTextClassification.pdf",
+          "pages": [
+            7,
+            20,
+            21,
+            22
+          ],
+          "links": [
+            {
+              "label": "p.7",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p7.webp"
+            },
+            {
+              "label": "p.20",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p20.webp"
+            },
+            {
+              "label": "p.21",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p21.webp"
+            },
+            {
+              "label": "p.22",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p22.webp"
+            }
+          ],
+          "title": "4_LogisticRegressionAndTextClassification.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-3-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "18_ConstituencyGrammarsAndConstituencyParsing.pdf",
+          "pages": [
+            35,
+            37,
+            38,
+            40
+          ],
+          "links": [
+            {
+              "label": "p.35",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p35.webp"
+            },
+            {
+              "label": "p.37",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p37.webp"
+            },
+            {
+              "label": "p.38",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p38.webp"
+            },
+            {
+              "label": "p.40",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p40.webp"
+            }
+          ],
+          "title": "18_ConstituencyGrammarsAndConstituencyParsing.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-3-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "18_ConstituencyGrammarsAndConstituencyParsing.pdf",
+          "pages": [
+            44,
+            45
+          ],
+          "links": [
+            {
+              "label": "p.44",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p44.webp"
+            },
+            {
+              "label": "p.45",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p45.webp"
+            }
+          ],
+          "title": "18_ConstituencyGrammarsAndConstituencyParsing.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-4-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "primary-paper",
+          "title": "Kim (2014), Section 2",
+          "url": "https://aclanthology.org/D14-1181.pdf",
+          "pages": []
+        }
+      ]
+    },
+    {
+      "id": "ss20-4-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "primary-paper",
+          "title": "Kim (2014), Section 2",
+          "url": "https://aclanthology.org/D14-1181.pdf",
+          "pages": []
+        }
+      ]
+    },
+    {
+      "id": "ss20-5-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            3,
+            5,
+            8
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/evidence/9_MaskedLMs-p3.webp"
+            },
+            {
+              "label": "p.5",
+              "url": "sources/evidence/9_MaskedLMs-p5.webp"
+            },
+            {
+              "label": "p.8",
+              "url": "sources/evidence/9_MaskedLMs-p8.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "5_Embeddings.pdf",
+          "pages": [
+            11,
+            23
+          ],
+          "links": [
+            {
+              "label": "p.11",
+              "url": "sources/evidence/5_Embeddings-p11.webp"
+            },
+            {
+              "label": "p.23",
+              "url": "sources/evidence/5_Embeddings-p23.webp"
+            }
+          ],
+          "title": "5_Embeddings.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-5-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            33,
+            34,
+            36
+          ],
+          "links": [
+            {
+              "label": "p.33",
+              "url": "sources/evidence/9_MaskedLMs-p33.webp"
+            },
+            {
+              "label": "p.34",
+              "url": "sources/evidence/9_MaskedLMs-p34.webp"
+            },
+            {
+              "label": "p.36",
+              "url": "sources/evidence/9_MaskedLMs-p36.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-5-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            5,
+            6
+          ],
+          "links": [
+            {
+              "label": "p.5",
+              "url": "sources/evidence/9_MaskedLMs-p5.webp"
+            },
+            {
+              "label": "p.6",
+              "url": "sources/evidence/9_MaskedLMs-p6.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-5-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            5,
+            10,
+            12
+          ],
+          "links": [
+            {
+              "label": "p.5",
+              "url": "sources/evidence/9_MaskedLMs-p5.webp"
+            },
+            {
+              "label": "p.10",
+              "url": "sources/evidence/9_MaskedLMs-p10.webp"
+            },
+            {
+              "label": "p.12",
+              "url": "sources/evidence/9_MaskedLMs-p12.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-5-5",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            34,
+            37
+          ],
+          "links": [
+            {
+              "label": "p.34",
+              "url": "sources/evidence/9_MaskedLMs-p34.webp"
+            },
+            {
+              "label": "p.37",
+              "url": "sources/evidence/9_MaskedLMs-p37.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-6-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "8_Transformers.pdf",
+          "pages": [
+            11
+          ],
+          "links": [
+            {
+              "label": "p.11",
+              "url": "sources/evidence/8_Transformers-p11.webp"
+            }
+          ],
+          "title": "8_Transformers.pdf"
+        },
+        {
+          "kind": "primary-paper",
+          "title": "Attention Is All You Need, Sections 3.2 / 3.5",
+          "url": "https://arxiv.org/html/1706.03762v7",
+          "pages": []
+        }
+      ]
+    },
+    {
+      "id": "ss20-6-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "8_Transformers.pdf",
+          "pages": [
+            21
+          ],
+          "links": [
+            {
+              "label": "p.21",
+              "url": "sources/evidence/8_Transformers-p21.webp"
+            }
+          ],
+          "title": "8_Transformers.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-6-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "8_Transformers.pdf",
+          "pages": [
+            15,
+            16,
+            17
+          ],
+          "links": [
+            {
+              "label": "p.15",
+              "url": "sources/evidence/8_Transformers-p15.webp"
+            },
+            {
+              "label": "p.16",
+              "url": "sources/evidence/8_Transformers-p16.webp"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/evidence/8_Transformers-p17.webp"
+            }
+          ],
+          "title": "8_Transformers.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-6-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "primary-paper",
+          "title": "Attention Is All You Need, Sections 3.2 / 3.5",
+          "url": "https://arxiv.org/html/1706.03762v7",
+          "pages": []
+        },
+        {
+          "kind": "provided-slides",
+          "file": "8_Transformers.pdf",
+          "pages": [
+            25,
+            26
+          ],
+          "links": [
+            {
+              "label": "p.25",
+              "url": "sources/evidence/8_Transformers-p25.webp"
+            },
+            {
+              "label": "p.26",
+              "url": "sources/evidence/8_Transformers-p26.webp"
+            }
+          ],
+          "title": "8_Transformers.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-6-5",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "8_Transformers.pdf",
+          "pages": [
+            10,
+            12,
+            13
+          ],
+          "links": [
+            {
+              "label": "p.10",
+              "url": "sources/evidence/8_Transformers-p10.webp"
+            },
+            {
+              "label": "p.12",
+              "url": "sources/evidence/8_Transformers-p12.webp"
+            },
+            {
+              "label": "p.13",
+              "url": "sources/evidence/8_Transformers-p13.webp"
+            }
+          ],
+          "title": "8_Transformers.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-7-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "4_LogisticRegressionAndTextClassification.pdf",
+          "pages": [
+            5,
+            6
+          ],
+          "links": [
+            {
+              "label": "p.5",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p5.webp"
+            },
+            {
+              "label": "p.6",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p6.webp"
+            }
+          ],
+          "title": "4_LogisticRegressionAndTextClassification.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "5_Embeddings.pdf",
+          "pages": [
+            18
+          ],
+          "links": [
+            {
+              "label": "p.18",
+              "url": "sources/evidence/5_Embeddings-p18.webp"
+            }
+          ],
+          "title": "5_Embeddings.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ss20-7-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "13_RNNsAndLSTMs.pdf",
+          "pages": [
+            44,
+            45,
+            47
+          ],
+          "links": [
+            {
+              "label": "p.44",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p44.webp"
+            },
+            {
+              "label": "p.45",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p45.webp"
+            },
+            {
+              "label": "p.47",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p47.webp"
+            }
+          ],
+          "title": "13_RNNsAndLSTMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-1-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "2_WordsAndTokens.pdf",
+          "pages": [
+            9,
+            10,
+            11
+          ],
+          "links": [
+            {
+              "label": "p.9",
+              "url": "sources/evidence/2_WordsAndTokens-p9.webp"
+            },
+            {
+              "label": "p.10",
+              "url": "sources/evidence/2_WordsAndTokens-p10.webp"
+            },
+            {
+              "label": "p.11",
+              "url": "sources/evidence/2_WordsAndTokens-p11.webp"
+            }
+          ],
+          "title": "2_WordsAndTokens.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-1-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "2_WordsAndTokens.pdf",
+          "pages": [
+            16,
+            17
+          ],
+          "links": [
+            {
+              "label": "p.16",
+              "url": "sources/evidence/2_WordsAndTokens-p16.webp"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/evidence/2_WordsAndTokens-p17.webp"
+            }
+          ],
+          "title": "2_WordsAndTokens.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-1-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "unresolved",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "2_WordsAndTokens.pdf",
+          "pages": [
+            16,
+            17
+          ],
+          "links": [
+            {
+              "label": "p.16",
+              "url": "sources/evidence/2_WordsAndTokens-p16.webp"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/evidence/2_WordsAndTokens-p17.webp"
+            }
+          ],
+          "title": "2_WordsAndTokens.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-1-5",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "3_N-gramLangageModels.pdf",
+          "pages": [
+            4,
+            5,
+            6
+          ],
+          "links": [
+            {
+              "label": "p.4",
+              "url": "sources/evidence/3_N-gramLangageModels-p4.webp"
+            },
+            {
+              "label": "p.5",
+              "url": "sources/evidence/3_N-gramLangageModels-p5.webp"
+            },
+            {
+              "label": "p.6",
+              "url": "sources/evidence/3_N-gramLangageModels-p6.webp"
+            }
+          ],
+          "title": "3_N-gramLangageModels.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-2-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "3_N-gramLangageModels.pdf",
+          "pages": [
+            19
+          ],
+          "links": [
+            {
+              "label": "p.19",
+              "url": "sources/evidence/3_N-gramLangageModels-p19.webp"
+            }
+          ],
+          "title": "3_N-gramLangageModels.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-2-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "4_LogisticRegressionAndTextClassification.pdf",
+          "pages": [
+            3,
+            14
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p3.webp"
+            },
+            {
+              "label": "p.14",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p14.webp"
+            }
+          ],
+          "title": "4_LogisticRegressionAndTextClassification.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-2-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "4_LogisticRegressionAndTextClassification.pdf",
+          "pages": [
+            12
+          ],
+          "links": [
+            {
+              "label": "p.12",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p12.webp"
+            }
+          ],
+          "title": "4_LogisticRegressionAndTextClassification.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-2-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "5_Embeddings.pdf",
+          "pages": [
+            16,
+            25,
+            27
+          ],
+          "links": [
+            {
+              "label": "p.16",
+              "url": "sources/evidence/5_Embeddings-p16.webp"
+            },
+            {
+              "label": "p.25",
+              "url": "sources/evidence/5_Embeddings-p25.webp"
+            },
+            {
+              "label": "p.27",
+              "url": "sources/evidence/5_Embeddings-p27.webp"
+            }
+          ],
+          "title": "5_Embeddings.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-3-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "18_ConstituencyGrammarsAndConstituencyParsing.pdf",
+          "pages": [
+            26,
+            27,
+            28
+          ],
+          "links": [
+            {
+              "label": "p.26",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p26.webp"
+            },
+            {
+              "label": "p.27",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p27.webp"
+            },
+            {
+              "label": "p.28",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p28.webp"
+            }
+          ],
+          "title": "18_ConstituencyGrammarsAndConstituencyParsing.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-3-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "18_ConstituencyGrammarsAndConstituencyParsing.pdf",
+          "pages": [
+            57,
+            59,
+            60,
+            61
+          ],
+          "links": [
+            {
+              "label": "p.57",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p57.webp"
+            },
+            {
+              "label": "p.59",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p59.webp"
+            },
+            {
+              "label": "p.60",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p60.webp"
+            },
+            {
+              "label": "p.61",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p61.webp"
+            }
+          ],
+          "title": "18_ConstituencyGrammarsAndConstituencyParsing.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-3-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "18_ConstituencyGrammarsAndConstituencyParsing.pdf",
+          "pages": [
+            16,
+            17
+          ],
+          "links": [
+            {
+              "label": "p.16",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p16.webp"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/evidence/18_ConstituencyGrammarsAndConstituencyParsing-p17.webp"
+            }
+          ],
+          "title": "18_ConstituencyGrammarsAndConstituencyParsing.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-4-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "primary-paper",
+          "title": "GloVe (2014), Section 3",
+          "url": "https://aclanthology.org/D14-1162.pdf",
+          "pages": []
+        }
+      ]
+    },
+    {
+      "id": "ws21-4-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "primary-paper",
+          "title": "GloVe (2014), Section 3",
+          "url": "https://aclanthology.org/D14-1162.pdf",
+          "pages": []
+        }
+      ]
+    },
+    {
+      "id": "ws21-4-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "5_Embeddings.pdf",
+          "pages": [
+            3,
+            4
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/evidence/5_Embeddings-p3.webp"
+            },
+            {
+              "label": "p.4",
+              "url": "sources/evidence/5_Embeddings-p4.webp"
+            }
+          ],
+          "title": "5_Embeddings.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            3,
+            5
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/evidence/9_MaskedLMs-p3.webp"
+            },
+            {
+              "label": "p.5",
+              "url": "sources/evidence/9_MaskedLMs-p5.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-4-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "13_RNNsAndLSTMs.pdf",
+          "pages": [
+            40,
+            41
+          ],
+          "links": [
+            {
+              "label": "p.40",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p40.webp"
+            },
+            {
+              "label": "p.41",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p41.webp"
+            }
+          ],
+          "title": "13_RNNsAndLSTMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-5-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "2_WordsAndTokens.pdf",
+          "pages": [
+            20,
+            21,
+            24
+          ],
+          "links": [
+            {
+              "label": "p.20",
+              "url": "sources/evidence/2_WordsAndTokens-p20.webp"
+            },
+            {
+              "label": "p.21",
+              "url": "sources/evidence/2_WordsAndTokens-p21.webp"
+            },
+            {
+              "label": "p.24",
+              "url": "sources/evidence/2_WordsAndTokens-p24.webp"
+            }
+          ],
+          "title": "2_WordsAndTokens.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "12_MachineTranslation.pdf",
+          "pages": [
+            15,
+            16,
+            17,
+            18
+          ],
+          "links": [
+            {
+              "label": "p.15",
+              "url": "sources/evidence/12_MachineTranslation-p15.webp"
+            },
+            {
+              "label": "p.16",
+              "url": "sources/evidence/12_MachineTranslation-p16.webp"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/evidence/12_MachineTranslation-p17.webp"
+            },
+            {
+              "label": "p.18",
+              "url": "sources/evidence/12_MachineTranslation-p18.webp"
+            }
+          ],
+          "title": "12_MachineTranslation.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-5-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "6_NeuralNetworks.pdf",
+          "pages": [
+            16,
+            17
+          ],
+          "links": [
+            {
+              "label": "p.16",
+              "url": "sources/evidence/6_NeuralNetworks-p16.webp"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/evidence/6_NeuralNetworks-p17.webp"
+            }
+          ],
+          "title": "6_NeuralNetworks.pdf"
+        },
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            33
+          ],
+          "links": [
+            {
+              "label": "p.33",
+              "url": "sources/mock21-solutions.pdf#page=33"
+            }
+          ],
+          "title": "Solution Suggestions · p.33"
+        }
+      ]
+    },
+    {
+      "id": "ws21-5-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            33
+          ],
+          "links": [
+            {
+              "label": "p.33",
+              "url": "sources/mock21-solutions.pdf#page=33"
+            }
+          ],
+          "title": "Solution Suggestions · p.33"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "13_RNNsAndLSTMs.pdf",
+          "pages": [
+            49,
+            50,
+            51
+          ],
+          "links": [
+            {
+              "label": "p.49",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p49.webp"
+            },
+            {
+              "label": "p.50",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p50.webp"
+            },
+            {
+              "label": "p.51",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p51.webp"
+            }
+          ],
+          "title": "13_RNNsAndLSTMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-5-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "8_Transformers.pdf",
+          "pages": [
+            10,
+            12,
+            13
+          ],
+          "links": [
+            {
+              "label": "p.10",
+              "url": "sources/evidence/8_Transformers-p10.webp"
+            },
+            {
+              "label": "p.12",
+              "url": "sources/evidence/8_Transformers-p12.webp"
+            },
+            {
+              "label": "p.13",
+              "url": "sources/evidence/8_Transformers-p13.webp"
+            }
+          ],
+          "title": "8_Transformers.pdf"
+        },
+        {
+          "kind": "primary-paper",
+          "title": "Kim (2014), Section 2",
+          "url": "https://aclanthology.org/D14-1181.pdf",
+          "pages": []
+        }
+      ]
+    },
+    {
+      "id": "ws21-6-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            5,
+            7,
+            10,
+            12
+          ],
+          "links": [
+            {
+              "label": "p.5",
+              "url": "sources/evidence/9_MaskedLMs-p5.webp"
+            },
+            {
+              "label": "p.7",
+              "url": "sources/evidence/9_MaskedLMs-p7.webp"
+            },
+            {
+              "label": "p.10",
+              "url": "sources/evidence/9_MaskedLMs-p10.webp"
+            },
+            {
+              "label": "p.12",
+              "url": "sources/evidence/9_MaskedLMs-p12.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-6-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            5,
+            7
+          ],
+          "links": [
+            {
+              "label": "p.5",
+              "url": "sources/evidence/9_MaskedLMs-p5.webp"
+            },
+            {
+              "label": "p.7",
+              "url": "sources/evidence/9_MaskedLMs-p7.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "12_MachineTranslation.pdf",
+          "pages": [
+            22,
+            23,
+            26,
+            28
+          ],
+          "links": [
+            {
+              "label": "p.22",
+              "url": "sources/evidence/12_MachineTranslation-p22.webp"
+            },
+            {
+              "label": "p.23",
+              "url": "sources/evidence/12_MachineTranslation-p23.webp"
+            },
+            {
+              "label": "p.26",
+              "url": "sources/evidence/12_MachineTranslation-p26.webp"
+            },
+            {
+              "label": "p.28",
+              "url": "sources/evidence/12_MachineTranslation-p28.webp"
+            }
+          ],
+          "title": "12_MachineTranslation.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ws21-6-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "reference-derivation"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "13_RNNsAndLSTMs.pdf",
+          "pages": [
+            45,
+            47,
+            48
+          ],
+          "links": [
+            {
+              "label": "p.45",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p45.webp"
+            },
+            {
+              "label": "p.47",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p47.webp"
+            },
+            {
+              "label": "p.48",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p48.webp"
+            }
+          ],
+          "title": "13_RNNsAndLSTMs.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "12_MachineTranslation.pdf",
+          "pages": [
+            22,
+            23
+          ],
+          "links": [
+            {
+              "label": "p.22",
+              "url": "sources/evidence/12_MachineTranslation-p22.webp"
+            },
+            {
+              "label": "p.23",
+              "url": "sources/evidence/12_MachineTranslation-p23.webp"
+            }
+          ],
+          "title": "12_MachineTranslation.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-1-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            3
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/mock21-solutions.pdf#page=3"
+            }
+          ],
+          "title": "Solution Suggestions · p.3"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "3_N-gramLangageModels.pdf",
+          "pages": [
+            5,
+            6
+          ],
+          "links": [
+            {
+              "label": "p.5",
+              "url": "sources/evidence/3_N-gramLangageModels-p5.webp"
+            },
+            {
+              "label": "p.6",
+              "url": "sources/evidence/3_N-gramLangageModels-p6.webp"
+            }
+          ],
+          "title": "3_N-gramLangageModels.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-1-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            3
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/mock21-solutions.pdf#page=3"
+            }
+          ],
+          "title": "Solution Suggestions · p.3"
+        }
+      ]
+    },
+    {
+      "id": "mock21-1-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            3
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/mock21-solutions.pdf#page=3"
+            }
+          ],
+          "title": "Solution Suggestions · p.3"
+        }
+      ]
+    },
+    {
+      "id": "mock21-2-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            5
+          ],
+          "links": [
+            {
+              "label": "p.5",
+              "url": "sources/mock21-solutions.pdf#page=5"
+            }
+          ],
+          "title": "Solution Suggestions · p.5"
+        }
+      ]
+    },
+    {
+      "id": "mock21-2-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            6
+          ],
+          "links": [
+            {
+              "label": "p.6",
+              "url": "sources/mock21-solutions.pdf#page=6"
+            }
+          ],
+          "title": "Solution Suggestions · p.6"
+        }
+      ]
+    },
+    {
+      "id": "mock21-3-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            8
+          ],
+          "links": [
+            {
+              "label": "p.8",
+              "url": "sources/mock21-solutions.pdf#page=8"
+            }
+          ],
+          "title": "Solution Suggestions · p.8"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "3_N-gramLangageModels.pdf",
+          "pages": [
+            18
+          ],
+          "links": [
+            {
+              "label": "p.18",
+              "url": "sources/evidence/3_N-gramLangageModels-p18.webp"
+            }
+          ],
+          "title": "3_N-gramLangageModels.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-3-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            9
+          ],
+          "links": [
+            {
+              "label": "p.9",
+              "url": "sources/mock21-solutions.pdf#page=9"
+            }
+          ],
+          "title": "Solution Suggestions · p.9"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "17_SequenceLabelingforPOSAndNER.pdf",
+          "pages": [
+            23,
+            24,
+            25
+          ],
+          "links": [
+            {
+              "label": "p.23",
+              "url": "sources/evidence/17_SequenceLabelingforPOSAndNER-p23.webp"
+            },
+            {
+              "label": "p.24",
+              "url": "sources/evidence/17_SequenceLabelingforPOSAndNER-p24.webp"
+            },
+            {
+              "label": "p.25",
+              "url": "sources/evidence/17_SequenceLabelingforPOSAndNER-p25.webp"
+            }
+          ],
+          "title": "17_SequenceLabelingforPOSAndNER.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            10,
+            11
+          ],
+          "links": [
+            {
+              "label": "p.10",
+              "url": "sources/mock21-solutions.pdf#page=10"
+            },
+            {
+              "label": "p.11",
+              "url": "sources/mock21-solutions.pdf#page=11"
+            }
+          ],
+          "title": "Solution Suggestions · p.10, p.11"
+        }
+      ]
+    },
+    {
+      "id": "mock21-5-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            13
+          ],
+          "links": [
+            {
+              "label": "p.13",
+              "url": "sources/mock21-solutions.pdf#page=13"
+            }
+          ],
+          "title": "Solution Suggestions · p.13"
+        }
+      ]
+    },
+    {
+      "id": "mock21-5-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            14
+          ],
+          "links": [
+            {
+              "label": "p.14",
+              "url": "sources/mock21-solutions.pdf#page=14"
+            }
+          ],
+          "title": "Solution Suggestions · p.14"
+        }
+      ]
+    },
+    {
+      "id": "mock21-6",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "links": [
+            {
+              "label": "p.15",
+              "url": "sources/mock21-solutions.pdf#page=15"
+            },
+            {
+              "label": "p.16",
+              "url": "sources/mock21-solutions.pdf#page=16"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/mock21-solutions.pdf#page=17"
+            },
+            {
+              "label": "p.18",
+              "url": "sources/mock21-solutions.pdf#page=18"
+            },
+            {
+              "label": "p.19",
+              "url": "sources/mock21-solutions.pdf#page=19"
+            },
+            {
+              "label": "p.20",
+              "url": "sources/mock21-solutions.pdf#page=20"
+            }
+          ],
+          "title": "Solution Suggestions · p.15, p.16, p.17, p.18, p.19, p.20"
+        }
+      ]
+    },
+    {
+      "id": "mock21-7-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            22
+          ],
+          "links": [
+            {
+              "label": "p.22",
+              "url": "sources/mock21-solutions.pdf#page=22"
+            }
+          ],
+          "title": "Solution Suggestions · p.22"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "17_SequenceLabelingforPOSAndNER.pdf",
+          "pages": [
+            17
+          ],
+          "links": [
+            {
+              "label": "p.17",
+              "url": "sources/evidence/17_SequenceLabelingforPOSAndNER-p17.webp"
+            }
+          ],
+          "title": "17_SequenceLabelingforPOSAndNER.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-7-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            22
+          ],
+          "links": [
+            {
+              "label": "p.22",
+              "url": "sources/mock21-solutions.pdf#page=22"
+            }
+          ],
+          "title": "Solution Suggestions · p.22"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "20_InformationExtractionRelationsEventsAndTime.pdf",
+          "pages": [
+            15,
+            16,
+            17
+          ],
+          "links": [
+            {
+              "label": "p.15",
+              "url": "sources/evidence/20_InformationExtractionRelationsEventsAndTime-p15.webp"
+            },
+            {
+              "label": "p.16",
+              "url": "sources/evidence/20_InformationExtractionRelationsEventsAndTime-p16.webp"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/evidence/20_InformationExtractionRelationsEventsAndTime-p17.webp"
+            }
+          ],
+          "title": "20_InformationExtractionRelationsEventsAndTime.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-7-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            22
+          ],
+          "links": [
+            {
+              "label": "p.22",
+              "url": "sources/mock21-solutions.pdf#page=22"
+            }
+          ],
+          "title": "Solution Suggestions · p.22"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "20_InformationExtractionRelationsEventsAndTime.pdf",
+          "pages": [
+            23
+          ],
+          "links": [
+            {
+              "label": "p.23",
+              "url": "sources/evidence/20_InformationExtractionRelationsEventsAndTime-p23.webp"
+            }
+          ],
+          "title": "20_InformationExtractionRelationsEventsAndTime.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-8-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            23
+          ],
+          "links": [
+            {
+              "label": "p.23",
+              "url": "sources/mock21-solutions.pdf#page=23"
+            }
+          ],
+          "title": "Solution Suggestions · p.23"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "4_LogisticRegressionAndTextClassification.pdf",
+          "pages": [
+            18,
+            19
+          ],
+          "links": [
+            {
+              "label": "p.18",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p18.webp"
+            },
+            {
+              "label": "p.19",
+              "url": "sources/evidence/4_LogisticRegressionAndTextClassification-p19.webp"
+            }
+          ],
+          "title": "4_LogisticRegressionAndTextClassification.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-8-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            23
+          ],
+          "links": [
+            {
+              "label": "p.23",
+              "url": "sources/mock21-solutions.pdf#page=23"
+            }
+          ],
+          "title": "Solution Suggestions · p.23"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "22_LexiconsForSentimentAffectAndConnotation.pdf",
+          "pages": [
+            11,
+            12
+          ],
+          "links": [
+            {
+              "label": "p.11",
+              "url": "sources/evidence/22_LexiconsForSentimentAffectAndConnotation-p11.webp"
+            },
+            {
+              "label": "p.12",
+              "url": "sources/evidence/22_LexiconsForSentimentAffectAndConnotation-p12.webp"
+            }
+          ],
+          "title": "22_LexiconsForSentimentAffectAndConnotation.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-9-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            25
+          ],
+          "links": [
+            {
+              "label": "p.25",
+              "url": "sources/mock21-solutions.pdf#page=25"
+            }
+          ],
+          "title": "Solution Suggestions · p.25"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "5_Embeddings.pdf",
+          "pages": [
+            17
+          ],
+          "links": [
+            {
+              "label": "p.17",
+              "url": "sources/evidence/5_Embeddings-p17.webp"
+            }
+          ],
+          "title": "5_Embeddings.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-9-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            25
+          ],
+          "links": [
+            {
+              "label": "p.25",
+              "url": "sources/mock21-solutions.pdf#page=25"
+            }
+          ],
+          "title": "Solution Suggestions · p.25"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "5_Embeddings.pdf",
+          "pages": [
+            23
+          ],
+          "links": [
+            {
+              "label": "p.23",
+              "url": "sources/evidence/5_Embeddings-p23.webp"
+            }
+          ],
+          "title": "5_Embeddings.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-9-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            25
+          ],
+          "links": [
+            {
+              "label": "p.25",
+              "url": "sources/mock21-solutions.pdf#page=25"
+            }
+          ],
+          "title": "Solution Suggestions · p.25"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "5_Embeddings.pdf",
+          "pages": [
+            10,
+            11
+          ],
+          "links": [
+            {
+              "label": "p.10",
+              "url": "sources/evidence/5_Embeddings-p10.webp"
+            },
+            {
+              "label": "p.11",
+              "url": "sources/evidence/5_Embeddings-p11.webp"
+            }
+          ],
+          "title": "5_Embeddings.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            3
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/evidence/9_MaskedLMs-p3.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-9-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            26
+          ],
+          "links": [
+            {
+              "label": "p.26",
+              "url": "sources/mock21-solutions.pdf#page=26"
+            }
+          ],
+          "title": "Solution Suggestions · p.26"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "5_Embeddings.pdf",
+          "pages": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "links": [
+            {
+              "label": "p.24",
+              "url": "sources/evidence/5_Embeddings-p24.webp"
+            },
+            {
+              "label": "p.25",
+              "url": "sources/evidence/5_Embeddings-p25.webp"
+            },
+            {
+              "label": "p.26",
+              "url": "sources/evidence/5_Embeddings-p26.webp"
+            },
+            {
+              "label": "p.27",
+              "url": "sources/evidence/5_Embeddings-p27.webp"
+            }
+          ],
+          "title": "5_Embeddings.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-9-5",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            26
+          ],
+          "links": [
+            {
+              "label": "p.26",
+              "url": "sources/mock21-solutions.pdf#page=26"
+            }
+          ],
+          "title": "Solution Suggestions · p.26"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "5_Embeddings.pdf",
+          "pages": [
+            26
+          ],
+          "links": [
+            {
+              "label": "p.26",
+              "url": "sources/evidence/5_Embeddings-p26.webp"
+            }
+          ],
+          "title": "5_Embeddings.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-10-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            28
+          ],
+          "links": [
+            {
+              "label": "p.28",
+              "url": "sources/mock21-solutions.pdf#page=28"
+            }
+          ],
+          "title": "Solution Suggestions · p.28"
+        }
+      ]
+    },
+    {
+      "id": "mock21-10-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            28
+          ],
+          "links": [
+            {
+              "label": "p.28",
+              "url": "sources/mock21-solutions.pdf#page=28"
+            }
+          ],
+          "title": "Solution Suggestions · p.28"
+        }
+      ]
+    },
+    {
+      "id": "mock21-10-3",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            28
+          ],
+          "links": [
+            {
+              "label": "p.28",
+              "url": "sources/mock21-solutions.pdf#page=28"
+            }
+          ],
+          "title": "Solution Suggestions · p.28"
+        }
+      ]
+    },
+    {
+      "id": "mock21-10-4",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            29
+          ],
+          "links": [
+            {
+              "label": "p.29",
+              "url": "sources/mock21-solutions.pdf#page=29"
+            }
+          ],
+          "title": "Solution Suggestions · p.29"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "13_RNNsAndLSTMs.pdf",
+          "pages": [
+            38,
+            39,
+            40,
+            41
+          ],
+          "links": [
+            {
+              "label": "p.38",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p38.webp"
+            },
+            {
+              "label": "p.39",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p39.webp"
+            },
+            {
+              "label": "p.40",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p40.webp"
+            },
+            {
+              "label": "p.41",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p41.webp"
+            }
+          ],
+          "title": "13_RNNsAndLSTMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-10-5",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            29
+          ],
+          "links": [
+            {
+              "label": "p.29",
+              "url": "sources/mock21-solutions.pdf#page=29"
+            }
+          ],
+          "title": "Solution Suggestions · p.29"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "13_RNNsAndLSTMs.pdf",
+          "pages": [
+            8,
+            9
+          ],
+          "links": [
+            {
+              "label": "p.8",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p8.webp"
+            },
+            {
+              "label": "p.9",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p9.webp"
+            }
+          ],
+          "title": "13_RNNsAndLSTMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-11-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            31
+          ],
+          "links": [
+            {
+              "label": "p.31",
+              "url": "sources/mock21-solutions.pdf#page=31"
+            }
+          ],
+          "title": "Solution Suggestions · p.31"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "13_RNNsAndLSTMs.pdf",
+          "pages": [
+            49
+          ],
+          "links": [
+            {
+              "label": "p.49",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p49.webp"
+            }
+          ],
+          "title": "13_RNNsAndLSTMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-11-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            31
+          ],
+          "links": [
+            {
+              "label": "p.31",
+              "url": "sources/mock21-solutions.pdf#page=31"
+            }
+          ],
+          "title": "Solution Suggestions · p.31"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "13_RNNsAndLSTMs.pdf",
+          "pages": [
+            49,
+            50,
+            51
+          ],
+          "links": [
+            {
+              "label": "p.49",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p49.webp"
+            },
+            {
+              "label": "p.50",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p50.webp"
+            },
+            {
+              "label": "p.51",
+              "url": "sources/evidence/13_RNNsAndLSTMs-p51.webp"
+            }
+          ],
+          "title": "13_RNNsAndLSTMs.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-12-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            33
+          ],
+          "links": [
+            {
+              "label": "p.33",
+              "url": "sources/mock21-solutions.pdf#page=33"
+            }
+          ],
+          "title": "Solution Suggestions · p.33"
+        }
+      ]
+    },
+    {
+      "id": "mock21-12-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            33
+          ],
+          "links": [
+            {
+              "label": "p.33",
+              "url": "sources/mock21-solutions.pdf#page=33"
+            }
+          ],
+          "title": "Solution Suggestions · p.33"
+        }
+      ]
+    },
+    {
+      "id": "mock21-13-1",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            35
+          ],
+          "links": [
+            {
+              "label": "p.35",
+              "url": "sources/mock21-solutions.pdf#page=35"
+            }
+          ],
+          "title": "Solution Suggestions · p.35"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "8_Transformers.pdf",
+          "pages": [
+            12,
+            13
+          ],
+          "links": [
+            {
+              "label": "p.12",
+              "url": "sources/evidence/8_Transformers-p12.webp"
+            },
+            {
+              "label": "p.13",
+              "url": "sources/evidence/8_Transformers-p13.webp"
+            }
+          ],
+          "title": "8_Transformers.pdf"
+        }
+      ]
+    },
+    {
+      "id": "mock21-13-2",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "provided-solution-paraphrase"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-solution",
+          "file": "mockExamWS21_with_solution.pdf",
+          "pages": [
+            35
+          ],
+          "links": [
+            {
+              "label": "p.35",
+              "url": "sources/mock21-solutions.pdf#page=35"
+            }
+          ],
+          "title": "Solution Suggestions · p.35"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "12_MachineTranslation.pdf",
+          "pages": [
+            23,
+            28
+          ],
+          "links": [
+            {
+              "label": "p.23",
+              "url": "sources/evidence/12_MachineTranslation-p23.webp"
+            },
+            {
+              "label": "p.28",
+              "url": "sources/evidence/12_MachineTranslation-p28.webp"
+            }
+          ],
+          "title": "12_MachineTranslation.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P01",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute.pdf",
+          "pages": [
+            4,
+            5,
+            6
+          ],
+          "links": [
+            {
+              "label": "p.4",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p4.webp"
+            },
+            {
+              "label": "p.5",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p5.webp"
+            },
+            {
+              "label": "p.6",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p6.webp"
+            }
+          ],
+          "title": "10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "1_Introduction.pdf",
+          "pages": [
+            21,
+            22
+          ],
+          "links": [
+            {
+              "label": "p.21",
+              "url": "sources/evidence/1_Introduction-p21.webp"
+            },
+            {
+              "label": "p.22",
+              "url": "sources/evidence/1_Introduction-p22.webp"
+            }
+          ],
+          "title": "1_Introduction.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P02",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute.pdf",
+          "pages": [
+            17,
+            18,
+            19,
+            20,
+            21
+          ],
+          "links": [
+            {
+              "label": "p.17",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p17.webp"
+            },
+            {
+              "label": "p.18",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p18.webp"
+            },
+            {
+              "label": "p.19",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p19.webp"
+            },
+            {
+              "label": "p.20",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p20.webp"
+            },
+            {
+              "label": "p.21",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p21.webp"
+            }
+          ],
+          "title": "10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P03",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute.pdf",
+          "pages": [
+            20
+          ],
+          "links": [
+            {
+              "label": "p.20",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p20.webp"
+            }
+          ],
+          "title": "10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P04",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute.pdf",
+          "pages": [
+            24,
+            25,
+            26
+          ],
+          "links": [
+            {
+              "label": "p.24",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p24.webp"
+            },
+            {
+              "label": "p.25",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p25.webp"
+            },
+            {
+              "label": "p.26",
+              "url": "sources/evidence/10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute-p26.webp"
+            }
+          ],
+          "title": "10_PostTraining_InstructionTuning_Alignment_andTestTimeCompute.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P05",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "11_IRandRAG.pdf",
+          "pages": [
+            15,
+            16,
+            17,
+            18
+          ],
+          "links": [
+            {
+              "label": "p.15",
+              "url": "sources/evidence/11_IRandRAG-p15.webp"
+            },
+            {
+              "label": "p.16",
+              "url": "sources/evidence/11_IRandRAG-p16.webp"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/evidence/11_IRandRAG-p17.webp"
+            },
+            {
+              "label": "p.18",
+              "url": "sources/evidence/11_IRandRAG-p18.webp"
+            }
+          ],
+          "title": "11_IRandRAG.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P06",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "11_IRandRAG.pdf",
+          "pages": [
+            7,
+            12,
+            13,
+            14
+          ],
+          "links": [
+            {
+              "label": "p.7",
+              "url": "sources/evidence/11_IRandRAG-p7.webp"
+            },
+            {
+              "label": "p.12",
+              "url": "sources/evidence/11_IRandRAG-p12.webp"
+            },
+            {
+              "label": "p.13",
+              "url": "sources/evidence/11_IRandRAG-p13.webp"
+            },
+            {
+              "label": "p.14",
+              "url": "sources/evidence/11_IRandRAG-p14.webp"
+            }
+          ],
+          "title": "11_IRandRAG.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P07",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "11_IRandRAG.pdf",
+          "pages": [
+            9
+          ],
+          "links": [
+            {
+              "label": "p.9",
+              "url": "sources/evidence/11_IRandRAG-p9.webp"
+            }
+          ],
+          "title": "11_IRandRAG.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P08",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "11_IRandRAG.pdf",
+          "pages": [
+            9,
+            17,
+            18
+          ],
+          "links": [
+            {
+              "label": "p.9",
+              "url": "sources/evidence/11_IRandRAG-p9.webp"
+            },
+            {
+              "label": "p.17",
+              "url": "sources/evidence/11_IRandRAG-p17.webp"
+            },
+            {
+              "label": "p.18",
+              "url": "sources/evidence/11_IRandRAG-p18.webp"
+            }
+          ],
+          "title": "11_IRandRAG.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P09",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "21_SemanticRoleLabeling.pptx",
+          "pages": [
+            3,
+            4,
+            6
+          ],
+          "links": [],
+          "title": "21_SemanticRoleLabeling.pptx · slides 3, 4, 6"
+        }
+      ]
+    },
+    {
+      "id": "practice-P10",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "23_CoreferenceResolution.pdf",
+          "pages": [
+            3,
+            4,
+            5,
+            15
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/evidence/23_CoreferenceResolution-p3.webp"
+            },
+            {
+              "label": "p.4",
+              "url": "sources/evidence/23_CoreferenceResolution-p4.webp"
+            },
+            {
+              "label": "p.5",
+              "url": "sources/evidence/23_CoreferenceResolution-p5.webp"
+            },
+            {
+              "label": "p.15",
+              "url": "sources/evidence/23_CoreferenceResolution-p15.webp"
+            }
+          ],
+          "title": "23_CoreferenceResolution.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P11",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "24_DiscourseCoherence.pdf",
+          "pages": [
+            3,
+            5,
+            6
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/evidence/24_DiscourseCoherence-p3.webp"
+            },
+            {
+              "label": "p.5",
+              "url": "sources/evidence/24_DiscourseCoherence-p5.webp"
+            },
+            {
+              "label": "p.6",
+              "url": "sources/evidence/24_DiscourseCoherence-p6.webp"
+            }
+          ],
+          "title": "24_DiscourseCoherence.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P12",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "9_MaskedLMs.pdf",
+          "pages": [
+            5,
+            7,
+            10,
+            12
+          ],
+          "links": [
+            {
+              "label": "p.5",
+              "url": "sources/evidence/9_MaskedLMs-p5.webp"
+            },
+            {
+              "label": "p.7",
+              "url": "sources/evidence/9_MaskedLMs-p7.webp"
+            },
+            {
+              "label": "p.10",
+              "url": "sources/evidence/9_MaskedLMs-p10.webp"
+            },
+            {
+              "label": "p.12",
+              "url": "sources/evidence/9_MaskedLMs-p12.webp"
+            }
+          ],
+          "title": "9_MaskedLMs.pdf"
+        },
+        {
+          "kind": "provided-slides",
+          "file": "7_LargeLanguageModels.pdf",
+          "pages": [
+            3,
+            4
+          ],
+          "links": [
+            {
+              "label": "p.3",
+              "url": "sources/evidence/7_LargeLanguageModels-p3.webp"
+            },
+            {
+              "label": "p.4",
+              "url": "sources/evidence/7_LargeLanguageModels-p4.webp"
+            }
+          ],
+          "title": "7_LargeLanguageModels.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P13",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "1_Introduction.pdf",
+          "pages": [
+            36
+          ],
+          "links": [
+            {
+              "label": "p.36",
+              "url": "sources/evidence/1_Introduction-p36.webp"
+            }
+          ],
+          "title": "1_Introduction.pdf"
+        }
+      ]
+    },
+    {
+      "id": "practice-P14",
+      "sourceReview": {
+        "date": "2026-11-13",
+        "status": "checked-against-listed-materials",
+        "provenance": "lecture-derived-practice"
+      },
+      "sourceEvidence": [
+        {
+          "kind": "provided-slides",
+          "file": "12_MachineTranslation.pdf",
+          "pages": [
+            38,
+            40,
+            42
+          ],
+          "links": [
+            {
+              "label": "p.38",
+              "url": "sources/evidence/12_MachineTranslation-p38.webp"
+            },
+            {
+              "label": "p.40",
+              "url": "sources/evidence/12_MachineTranslation-p40.webp"
+            },
+            {
+              "label": "p.42",
+              "url": "sources/evidence/12_MachineTranslation-p42.webp"
+            }
+          ],
+          "title": "12_MachineTranslation.pdf"
+        }
+      ]
+    }
+  ]
+}
