@@ -12,9 +12,9 @@ SSO identifies a user; it does not by itself authorize TUMonline or Moodle data 
 
 ## UI preview
 
-<img src="docs/images/timetable-preview.png" width="320" alt="Owner-authorized screenshot of the private timetable edition">
+<img src="docs/images/timetable-preview.jpg" width="1200" alt="Owner-authorized full-page desktop screenshot of the private timetable edition">
 
-Private-edition UI preview, shown with the owner's permission; the new login edition starts with an empty timetable. Screenshot only; underlying personal data is excluded.
+Full-page desktop preview of the private edition, shown with the owner's permission; the new login edition starts with an empty timetable. Screenshot only; underlying personal data is excluded.
 
 ## Run locally
 
